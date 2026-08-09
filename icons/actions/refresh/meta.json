@@ -1,0 +1,25 @@
+{
+  "name": "refresh",
+  "slug": "refresh",
+  "category": "actions",
+  "description": "Represents reload, sync, or refresh action. The dual circular arrows rotate 180 degrees clockwise on hover.",
+  "keywords": ["refresh", "reload", "sync", "rotate", "cycle", "arrow"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "rotation",
+    "description": "Rotates 180 degrees clockwise on hover.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Refresh",
+    "notes": "Used for page or data refresh actions."
+  },
+  "status": "stable"
+}

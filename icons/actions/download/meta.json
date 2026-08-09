@@ -1,0 +1,25 @@
+{
+  "name": "download",
+  "slug": "download",
+  "category": "actions",
+  "description": "Represents a file or data download action. The arrow translates downward toward the baseline surface on hover.",
+  "keywords": ["download", "save", "export", "arrow-down", "file", "receive"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "The arrow shaft and head translate downward by 3px toward the stationary baseline surface on hover.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Download",
+    "notes": "Provide context when used inside a button or link."
+  },
+  "status": "stable"
+}

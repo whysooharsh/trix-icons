@@ -18,7 +18,7 @@ import { constants } from "node:fs";
 const ROOT = resolve(import.meta.dirname, "..");
 const ICONS_DIR = join(ROOT, "icons");
 
-const VALID_CATEGORIES = ["ui", "actions", "navigation", "communication", "media", "system", "brands", "experimental"];
+const VALID_CATEGORIES = ["actions", "navigation", "communication", "media", "system", "brands", "experimental"];
 const VALID_STATUSES = ["stable", "experimental", "deprecated"];
 const VALID_PROVENANCE_SOURCES = ["original", "modified-third-party", "third-party"];
 const VALID_REDUCED_MOTION = ["static", "minimal", "essential"];
