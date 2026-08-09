@@ -10,6 +10,9 @@
 export { DownloadIcon } from './actions/DownloadIcon.js';
 export { RefreshIcon } from './actions/RefreshIcon.js';
 
+// ─── Communication ───────────────────────────────────────────────────────────
+export { SendIcon } from './communication/SendIcon.js';
+
 // ─── System ──────────────────────────────────────────────────────────────────
 export { CheckIcon } from './system/CheckIcon.js';
 

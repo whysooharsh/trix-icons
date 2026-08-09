@@ -1,0 +1,25 @@
+{
+  "name": "send",
+  "slug": "send",
+  "category": "communication",
+  "description": "Represents sending a message, email, or dispatch. On hover, the plane takes off on a curved trajectory loop before returning smoothly to rest at origin.",
+  "keywords": ["send", "paper-plane", "flight", "message", "dispatch", "mail", "communication", "airplane"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "flight-path-loop",
+    "description": "The paper plane executes a curved flight loop with pitch rotation and depth scaling (1.2s) before returning to origin.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Send",
+    "notes": "Provide context when used inside a submit button or message form."
+  },
+  "status": "stable"
+}

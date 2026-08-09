@@ -7,6 +7,7 @@ import {
   LeetcodeIcon,
   MediumIcon,
   RefreshIcon,
+  SendIcon,
 } from '@trix/icons';
 
 // Import generated registry source of truth (3 levels up to root)
@@ -27,6 +28,7 @@ const COMPONENT_MAP: Record<
   download: DownloadIcon,
   check: CheckIcon,
   refresh: RefreshIcon,
+  send: SendIcon,
 };
 
 export function App() {
@@ -39,6 +41,7 @@ export function App() {
   // Standalone feature refs for interactive demonstration
   const mediumFeatureRef = useRef<AnimatedIconHandle>(null);
   const leetcodeFeatureRef = useRef<AnimatedIconHandle>(null);
+  const sendFeatureRef = useRef<AnimatedIconHandle>(null);
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
 
@@ -71,23 +74,23 @@ export function App() {
   ];
 
   const codeExample = `// 1. Install component source code into your project
-$ npx trix add medium
+$ npx trix add send
 
 // 2. Import and use the component with standard props or imperative handle
 import { useRef } from 'react';
-import { MediumIcon } from '@/components/icons/MediumIcon';
+import { SendIcon } from '@/components/icons/SendIcon';
 import type { AnimatedIconHandle } from '@trix/core';
 
-export function UserProfile() {
+export function MessageDispatch() {
   const iconRef = useRef<AnimatedIconHandle>(null);
 
   return (
-    <MediumIcon
+    <SendIcon
       ref={iconRef}
       size={32}
       color="currentColor"
       trigger="hover"
-      aria-label="Medium Publication"
+      aria-label="Send Message"
     />
   );
 }`;
@@ -142,10 +145,10 @@ export function UserProfile() {
           {/* Quick CLI copy */}
           <div className="cli-bar">
             <span className="cli-prefix">$</span>
-            <span>npx trix add download</span>
+            <span>npx trix add send</span>
             <button
               className="cli-copy-btn"
-              onClick={() => handleCopy('npx trix add download', setCopiedCli)}
+              onClick={() => handleCopy('npx trix add send', setCopiedCli)}
             >
               {copiedCli ? '✓ Copied' : 'Copy'}
             </button>
@@ -153,6 +156,10 @@ export function UserProfile() {
 
           {/* Hero Live Icon Ribbon Banner */}
           <div className="hero-stage-banner">
+            <div className="hero-banner-item" title="Send (Hover to animate)">
+              <SendIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">send</span>
+            </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">medium</span>
@@ -177,24 +184,44 @@ export function UserProfile() {
         </div>
       </section>
 
-      {/* Feature 1: Staggered Assembly (Orchid Split Layout) */}
+      {/* Feature 1: Flight Trajectory Loop (Send Icon - Orchid Split Feature) */}
       <section className="section" id="showcase">
         <div className="container">
           <div className="split-feature">
             <div>
-              <div className="feature-meta-num">01 / STAGGERED ASSEMBLY</div>
+              <div className="feature-meta-num">01 / FLIGHT TRAJECTORY LOOP</div>
               <h2 className="feature-heading">
-                Sequential path draw following natural reading direction.
+                Curved flight loop returning smoothly to origin.
               </h2>
               <p className="feature-desc">
-                The Medium mark demonstrates staggered assembly. Three shapes—circle, ellipse, pill—draw in sequentially from left to right (0ms / 150ms / 280ms), dissolving into fill 50ms before stroke completion.
+                The Send paper plane icon executes a graceful 3D curved flight path loop (1.2s) with pitch rotation and depth scaling before returning seamlessly to rest at origin.
               </p>
               <div className="cli-bar" style={{ marginBottom: 0 }}>
                 <span className="cli-prefix">$</span>
-                <span>npx trix add medium</span>
+                <span>npx trix add send</span>
               </div>
             </div>
 
+            <div
+              className="feature-stage-large"
+              onClick={() => sendFeatureRef.current?.startAnimation()}
+            >
+              <SendIcon
+                ref={sendFeatureRef}
+                size={120}
+                trigger="hover"
+                color="#1e293b"
+              />
+              <span className="stage-caption">Hover or tap to launch flight loop</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature 2: Staggered Assembly (Medium Icon) */}
+      <section className="section">
+        <div className="container">
+          <div className="split-feature">
             <div
               className="feature-stage-large"
               onClick={() => mediumFeatureRef.current?.startAnimation()}
@@ -207,14 +234,42 @@ export function UserProfile() {
               />
               <span className="stage-caption">Hover or tap to replay assembly</span>
             </div>
+
+            <div>
+              <div className="feature-meta-num">02 / STAGGERED ASSEMBLY</div>
+              <h2 className="feature-heading">
+                Sequential path draw following natural reading direction.
+              </h2>
+              <p className="feature-desc">
+                The Medium mark demonstrates staggered assembly. Three shapes—circle, ellipse, pill—draw in sequentially from left to right (0ms / 150ms / 280ms), dissolving into fill 50ms before stroke completion.
+              </p>
+              <div className="cli-bar" style={{ marginBottom: 0 }}>
+                <span className="cli-prefix">$</span>
+                <span>npx trix add medium</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Feature 2: Continuous Gesture (Orchid Reversed Split Layout) */}
+      {/* Feature 3: Continuous Gesture (LeetCode Icon) */}
       <section className="section">
         <div className="container">
           <div className="split-feature">
+            <div>
+              <div className="feature-meta-num">03 / CONTINUOUS TRACING</div>
+              <h2 className="feature-heading">
+                One continuous gesture drawn in unhurried motion.
+              </h2>
+              <p className="feature-desc">
+                The LeetCode mark traces its complex angular bracket and intersecting bar in a single 1.1s stroke using a weighted cubic-bezier (0.65, 0, 0.35, 1), crossfading smoothly into fill.
+              </p>
+              <div className="cli-bar" style={{ marginBottom: 0 }}>
+                <span className="cli-prefix">$</span>
+                <span>npx trix add leetcode</span>
+              </div>
+            </div>
+
             <div
               className="feature-stage-large"
               onClick={() => leetcodeFeatureRef.current?.startAnimation()}
@@ -227,29 +282,15 @@ export function UserProfile() {
               />
               <span className="stage-caption">Hover or tap to trace gesture</span>
             </div>
-
-            <div>
-              <div className="feature-meta-num">02 / CONTINUOUS TRACING</div>
-              <h2 className="feature-heading">
-                One continuous gesture drawn in unhurried motion.
-              </h2>
-              <p className="feature-desc">
-                The LeetCode mark traces its complex angular bracket and intersecting bar in a single 1.1s stroke using a weighted cubic-bezier (0.65, 0, 0.35, 1), crossfading smoothly into fill.
-              </p>
-              <div className="cli-bar" style={{ marginBottom: 0 }}>
-                <span className="cli-prefix">$</span>
-                <span>npx trix add leetcode</span>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Feature 3: Action Primitives (Wide Showcase Row) */}
+      {/* Feature 4: Action Primitives (Wide Showcase Row) */}
       <section className="section">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            03 / MOTION PRIMITIVES
+            04 / MOTION PRIMITIVES
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '48px' }}>
             Directional translation and stroke completion.
@@ -308,7 +349,7 @@ export function UserProfile() {
         <div className="container">
           <div className="dev-section-grid">
             <div>
-              <div className="feature-meta-num">04 / DEVELOPER API</div>
+              <div className="feature-meta-num">05 / DEVELOPER API</div>
               <h2 className="feature-heading">
                 Source code developers can own.
               </h2>
@@ -317,7 +358,7 @@ export function UserProfile() {
               </p>
               <div className="cli-bar" style={{ marginBottom: 0 }}>
                 <span className="cli-prefix">$</span>
-                <span>npx trix add download</span>
+                <span>npx trix add send</span>
               </div>
             </div>
 
@@ -340,7 +381,7 @@ export function UserProfile() {
       <section className="section" id="browser">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            05 / REGISTRY GALLERY
+            06 / REGISTRY GALLERY
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Browse canonical icon definitions.
@@ -400,7 +441,7 @@ export function UserProfile() {
       <section className="section" id="provenance">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            06 / PROVENANCE &amp; TRADEMARK
+            07 / PROVENANCE &amp; TRADEMARK
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Strict legal provenance and attribution.
