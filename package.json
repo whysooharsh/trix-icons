@@ -1,0 +1,29 @@
+{
+  "name": "trix-icons",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A carefully designed animated icon system where motion is intentional, source code is owned by developers, and APIs are predictable.",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "registry:build": "node scripts/build-registry.js",
+    "registry:validate": "node scripts/validate-registry.js",
+    "icons:validate": "node scripts/validate-icons.js"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "npm@10.0.0"
+}
