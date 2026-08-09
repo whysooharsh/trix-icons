@@ -18,7 +18,7 @@
     "dev": "tsup src/index.ts --format esm --dts --watch"
   },
   "dependencies": {
-    "@trix/core": "workspace:*",
+    "@trix/core": "0.1.0",
     "motion": "^11.0.0"
   },
   "devDependencies": {
