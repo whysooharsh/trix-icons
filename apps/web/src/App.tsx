@@ -9,6 +9,7 @@ import {
   RefreshIcon,
   SendIcon,
 } from '@trix/icons';
+import { LogoMark } from './components/LogoMark';
 
 // Import generated registry source of truth (3 levels up to root)
 import registryDataRaw from '../../../registry/icons.json';
@@ -103,8 +104,8 @@ export function MessageDispatch() {
       <header>
         <div className="container nav-row">
           <a href="#" className="brand-title">
-            <span className="brand-dot" />
-            trix-icons
+            <LogoMark size={30} gradientId="headerLogo" />
+            <span>trix-icons</span>
           </a>
           <nav className="nav-menu">
             <a href="#showcase" className="nav-link">
@@ -471,7 +472,10 @@ export function MessageDispatch() {
       {/* Footer */}
       <footer>
         <div className="container footer-row">
-          <div className="footer-brand">trix-icons</div>
+          <div className="footer-brand" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <LogoMark size={32} gradientId="footerLogo" />
+            <span>trix-icons</span>
+          </div>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
             Built with React 18+ &amp; motion/react. Source code owned by developers.
           </div>

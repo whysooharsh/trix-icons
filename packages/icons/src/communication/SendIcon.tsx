@@ -21,14 +21,17 @@ export const SendIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
 
     const startAnimation = useCallback(() => {
       if (prefersReducedMotion || disabled) return;
+      // Proportional percentage-based flight trajectory keyframes.
+      // Scales fluidly and remains 100% proportional at any size (16px to 250px+).
       ctrl.start({
-        x: [0, 8, 12, -8, 0],
-        y: [0, -10, -16, 6, 0],
-        rotate: [0, -18, -35, 12, 0],
-        scale: [1, 0.85, 0.9, 0.95, 1],
+        x: ['0%', '22%', '32%', '-18%', '0%'],
+        y: ['0%', '-28%', '-40%', '16%', '0%'],
+        rotate: [0, -18, -32, 14, 0],
+        scale: [1, 0.88, 0.92, 0.96, 1],
         transition: {
-          duration: 1.2,
+          duration: 1.1,
           ease: [0.4, 0, 0.2, 1],
+          times: [0, 0.3, 0.55, 0.8, 1],
         },
       });
     }, [prefersReducedMotion, disabled, ctrl]);
@@ -38,7 +41,7 @@ export const SendIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     }, [ctrl]);
 
     const resetAnimation = useCallback(() => {
-      ctrl.set({ x: 0, y: 0, rotate: 0, scale: 1 });
+      ctrl.set({ x: '0%', y: '0%', rotate: 0, scale: 1 });
     }, [ctrl]);
 
     useImperativeHandle(
@@ -65,6 +68,7 @@ export const SendIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}
@@ -78,8 +82,8 @@ export const SendIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           fillRule="evenodd"
           clipRule="evenodd"
           animate={ctrl}
-          initial={{ x: 0, y: 0, rotate: 0, scale: 1 }}
-          style={{ transformOrigin: '12px 12px' }}
+          initial={{ x: '0%', y: '0%', rotate: 0, scale: 1 }}
+          style={{ transformOrigin: '50% 50%' }}
         />
       </svg>
     );

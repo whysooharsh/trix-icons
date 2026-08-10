@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <!-- Sleek Slate Navy Gradient for Favicon -->
+    <linearGradient id="gradMonoFavicon" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#3D52A0" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="shadowFavicon" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#1E293B" flood-opacity="0.3" />
+    </filter>
+
+    <!-- Cutout mask to create a crisp 2.5px transparent gap where shapes overlap -->
+    <mask id="stem-mask-favicon">
+      <rect width="100" height="100" fill="white" />
+      <circle cx="28" cy="28" r="16.5" fill="black" />
+      <path d="M 62 18 L 82 28 L 62 38 Z" fill="black" stroke="black" stroke-width="13" stroke-linejoin="round" />
+    </mask>
+  </defs>
+
+  <!-- Foundation Stem -->
+  <rect x="38" y="30" width="24" height="56" rx="12" fill="url(#gradMonoFavicon)" mask="url(#stem-mask-favicon)" />
+
+  <!-- Geometry Circle -->
+  <circle cx="28" cy="28" r="14" fill="url(#gradMonoFavicon)" filter="url(#shadowFavicon)" />
+
+  <!-- Animation Play Button -->
+  <path d="M 62 18 L 82 28 L 62 38 Z" fill="url(#gradMonoFavicon)" stroke="url(#gradMonoFavicon)" stroke-width="8" stroke-linejoin="round" filter="url(#shadowFavicon)" />
+</svg>
