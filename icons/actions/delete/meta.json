@@ -1,0 +1,25 @@
+{
+  "name": "delete",
+  "slug": "delete",
+  "category": "actions",
+  "description": "Represents a delete or discard action. On hover, the bin lid swings open on a hinge at its left corner (-25°, spring easing) — ready to receive the deleted item. On press, the whole icon scales down to 0.92 confirming the destructive action. Lid closes on hover-leave.",
+  "keywords": ["delete", "trash", "bin", "remove", "discard", "clear", "destroy"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "lid-hinge",
+    "description": "The lid path is separated from the bin body and rotates -25° around its left-bottom hinge point (SVG coords 4,6) on hover — 0.3s cubic-bezier(0.34,1.56,0.64,1) spring overshoot. The whole icon scales to 0.92 on press (100ms easeOut). Both reverse on hover-leave / pointer-up. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Delete",
+    "notes": "Destructive actions must have a confirmation step or be reversible. The icon alone does not communicate permanence — the surrounding UI must."
+  },
+  "status": "experimental"
+}

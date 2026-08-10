@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!--
+    Bin body — incorporates the inner cutouts (the two slots).
+    Static; does not animate.
+  -->
+  <path fill="currentColor" fill-rule="evenodd"
+    d="M7 21q-.825 0-1.412-.587T5 19V6h14v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z" />
+
+  <!--
+    Lid — separated from the body to allow independent hinged rotation.
+    Hinge point: left-bottom corner (4, 6).
+    Animates: rotate(-25deg) on hover, using cubic-bezier(0.34, 1.56, 0.64, 1).
+  -->
+  <path fill="currentColor" d="M4 6V4h5V3h6v1h5v2Z" />
+</svg>

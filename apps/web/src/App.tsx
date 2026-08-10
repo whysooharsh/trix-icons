@@ -5,6 +5,7 @@ import {
   CallIcon,
   CheckIcon,
   CopyIcon,
+  DeleteIcon,
   DownloadIcon,
   LeetcodeIcon,
   MailIcon,
@@ -29,6 +30,7 @@ const COMPONENT_MAP: Record<
   call: CallIcon,
   check: CheckIcon,
   copy: CopyIcon,
+  delete: DeleteIcon,
   download: DownloadIcon,
   leetcode: LeetcodeIcon,
   mail: MailIcon,
@@ -49,6 +51,7 @@ export function App() {
   const callFeatureRef = useRef<AnimatedIconHandle>(null);
   const mailFeatureRef = useRef<AnimatedIconHandle>(null);
   const copyFeatureRef = useRef<AnimatedIconHandle>(null);
+  const deleteFeatureRef = useRef<AnimatedIconHandle>(null);
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
 
@@ -174,6 +177,10 @@ export function DialButton() {
             <div className="hero-banner-item" title="Copy (Hover to animate)">
               <CopyIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">copy</span>
+            </div>
+            <div className="hero-banner-item" title="Delete (Hover to animate)">
+              <DeleteIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">delete</span>
             </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />
@@ -369,11 +376,45 @@ export function DialButton() {
         </div>
       </section>
 
-      {/* Feature 6: Action Primitives (Wide Showcase Row) */}
+      {/* Feature 6: Lid Hinge (Delete Icon) */}
+      <section className="section">
+        <div className="container">
+          <div className="split-feature">
+            <div
+              className="feature-stage-large"
+              onClick={() => deleteFeatureRef.current?.startAnimation()}
+            >
+              <DeleteIcon
+                ref={deleteFeatureRef}
+                size={120}
+                trigger="hover"
+                color="#1e293b"
+              />
+              <span className="stage-caption">Hover to open, click to delete</span>
+            </div>
+
+            <div>
+              <div className="feature-meta-num">06 / LID HINGE</div>
+              <h2 className="feature-heading">
+                Lid swings open on a spring hinge to receive the item.
+              </h2>
+              <p className="feature-desc">
+                The bin lid is separated from the body and rotates -25° around its left-bottom hinge point on hover — using a spring cubic-bezier (0.34, 1.56, 0.64, 1) that overshoots slightly before settling. The whole icon scales to 0.92 on press (100ms).
+              </p>
+              <div className="cli-bar" style={{ marginBottom: 0 }}>
+                <span className="cli-prefix">$</span>
+                <span>npx trix add delete</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature 7: Action Primitives (Wide Showcase Row) */}
       <section className="section">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            06 / MOTION PRIMITIVES
+            07 / MOTION PRIMITIVES
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '48px' }}>
             Directional translation and stroke completion.
@@ -432,7 +473,7 @@ export function DialButton() {
         <div className="container">
           <div className="dev-section-grid">
             <div>
-              <div className="feature-meta-num">07 / DEVELOPER API</div>
+              <div className="feature-meta-num">08 / DEVELOPER API</div>
               <h2 className="feature-heading">
                 Source code developers can own.
               </h2>
@@ -464,7 +505,7 @@ export function DialButton() {
       <section className="section" id="browser">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            08 / REGISTRY GALLERY
+            09 / REGISTRY GALLERY
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Browse canonical icon definitions.
@@ -524,7 +565,7 @@ export function DialButton() {
       <section className="section" id="provenance">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            09 / PROVENANCE &amp; TRADEMARK
+            10 / PROVENANCE &amp; TRADEMARK
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Strict legal provenance and attribution.
