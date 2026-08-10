@@ -7,6 +7,7 @@
  */
 
 // ─── Actions ─────────────────────────────────────────────────────────────────
+export { CopyIcon } from './actions/CopyIcon.js';
 export { DownloadIcon } from './actions/DownloadIcon.js';
 export { RefreshIcon } from './actions/RefreshIcon.js';
 

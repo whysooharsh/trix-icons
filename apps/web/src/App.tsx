@@ -4,6 +4,7 @@ import type { GeneratedRegistry, RegistryEntry } from '@trix/registry';
 import {
   CallIcon,
   CheckIcon,
+  CopyIcon,
   DownloadIcon,
   LeetcodeIcon,
   MailIcon,
@@ -27,6 +28,7 @@ const COMPONENT_MAP: Record<
 > = {
   call: CallIcon,
   check: CheckIcon,
+  copy: CopyIcon,
   download: DownloadIcon,
   leetcode: LeetcodeIcon,
   mail: MailIcon,
@@ -46,6 +48,7 @@ export function App() {
   const leetcodeFeatureRef = useRef<AnimatedIconHandle>(null);
   const callFeatureRef = useRef<AnimatedIconHandle>(null);
   const mailFeatureRef = useRef<AnimatedIconHandle>(null);
+  const copyFeatureRef = useRef<AnimatedIconHandle>(null);
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
 
@@ -167,6 +170,10 @@ export function DialButton() {
             <div className="hero-banner-item" title="Mail (Hover to animate)">
               <MailIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">mail</span>
+            </div>
+            <div className="hero-banner-item" title="Copy (Hover to animate)">
+              <CopyIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">copy</span>
             </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />
@@ -328,11 +335,45 @@ export function DialButton() {
         </div>
       </section>
 
-      {/* Feature 5: Action Primitives (Wide Showcase Row) */}
+      {/* Feature 5: Layered Duplication (Copy Icon) */}
+      <section className="section">
+        <div className="container">
+          <div className="split-feature">
+            <div>
+              <div className="feature-meta-num">05 / LAYERED DUPLICATION</div>
+              <h2 className="feature-heading">
+                Two sheets parallax apart to show duplication.
+              </h2>
+              <p className="feature-desc">
+                On hover the front sheet lifts toward the viewer (+1px, scale 1.05) while the back sheet recedes into the background (-1px, scale 0.95, opacity 0.3) — communicating that one document becomes two. On press both compress together (scale 0.95, 100ms).
+              </p>
+              <div className="cli-bar" style={{ marginBottom: 0 }}>
+                <span className="cli-prefix">$</span>
+                <span>npx trix add copy</span>
+              </div>
+            </div>
+
+            <div
+              className="feature-stage-large"
+              onClick={() => copyFeatureRef.current?.startAnimation()}
+            >
+              <CopyIcon
+                ref={copyFeatureRef}
+                size={120}
+                trigger="hover"
+                color="#1e293b"
+              />
+              <span className="stage-caption">Hover to peel, click to press</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature 6: Action Primitives (Wide Showcase Row) */}
       <section className="section">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            05 / MOTION PRIMITIVES
+            06 / MOTION PRIMITIVES
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '48px' }}>
             Directional translation and stroke completion.
@@ -391,7 +432,7 @@ export function DialButton() {
         <div className="container">
           <div className="dev-section-grid">
             <div>
-              <div className="feature-meta-num">06 / DEVELOPER API</div>
+              <div className="feature-meta-num">07 / DEVELOPER API</div>
               <h2 className="feature-heading">
                 Source code developers can own.
               </h2>
@@ -423,7 +464,7 @@ export function DialButton() {
       <section className="section" id="browser">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            07 / REGISTRY GALLERY
+            08 / REGISTRY GALLERY
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Browse canonical icon definitions.
@@ -483,7 +524,7 @@ export function DialButton() {
       <section className="section" id="provenance">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            08 / PROVENANCE &amp; TRADEMARK
+            09 / PROVENANCE &amp; TRADEMARK
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '40px' }}>
             Strict legal provenance and attribution.
