@@ -1,0 +1,25 @@
+{
+  "name": "mail",
+  "slug": "mail",
+  "category": "communication",
+  "description": "Represents email or message composition. On hover, the envelope flap lifts upward (morphing from a flat top to a peak 5 units above the rim), revealing the open interior. Closes on hover-leave.",
+  "keywords": ["mail", "email", "envelope", "message", "inbox", "compose", "letter"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "path-morph",
+    "description": "Two paths share identical command structures allowing smooth browser interpolation. The outline flap peak morphs L12,5→L12,0 (0.35s, cubic-bezier 0.65/0/0.35/1). The inner crease morphs from outer envelope corners inward simultaneously. Reverses on hover-leave. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Mail",
+    "notes": "When used as a link to an inbox or compose flow, the parent element should provide destination context."
+  },
+  "status": "experimental"
+}

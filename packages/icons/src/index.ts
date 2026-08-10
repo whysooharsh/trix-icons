@@ -11,7 +11,9 @@ export { DownloadIcon } from './actions/DownloadIcon.js';
 export { RefreshIcon } from './actions/RefreshIcon.js';
 
 // ─── Communication ───────────────────────────────────────────────────────────
-export { SendIcon } from './communication/SendIcon.js';
+export { CallIcon } from './communication/CallIcon.js';
+export { MailIcon } from './communication/MailIcon.js';
+
 
 // ─── System ──────────────────────────────────────────────────────────────────
 export { CheckIcon } from './system/CheckIcon.js';

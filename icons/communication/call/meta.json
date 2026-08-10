@@ -1,0 +1,25 @@
+{
+  "name": "call",
+  "slug": "call",
+  "category": "communication",
+  "description": "Represents a phone call or voice call action. On hover, the handset vibrates with a decaying rotational jitter (±10° → 0°) and horizontal buzz, simulating the physical sensation of an incoming ring.",
+  "keywords": ["call", "phone", "ring", "dial", "voice", "contact", "handset"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "physical-swing",
+    "description": "Decaying rotational jitter (0°→-10°→9°→...→0°) with proportional horizontal buzz (0→±0.6px→0) looping continuously while hovered. Snaps to rest on hover-leave. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Call",
+    "notes": "When used as an action button, the parent should clarify who is being called (e.g. aria-label='Call Jane Doe')."
+  },
+  "status": "experimental"
+}

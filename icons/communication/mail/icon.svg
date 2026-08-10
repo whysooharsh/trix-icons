@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+     fill="none" stroke="currentColor" stroke-width="2"
+     stroke-linecap="round" stroke-linejoin="round">
+  <!-- Envelope outline: identical command structure in open/closed states —
+       only the flap peak Y changes (L12 5 → L12 0) enabling smooth morph. -->
+  <path d="M3 7a2 2 0 0 1 2-2L12 5L19 5a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z" />
+  <!-- Inner V crease: morphs from outer corners to slightly inward as flap lifts. -->
+  <path d="M3 7L12 13L21 7" />
+</svg>
