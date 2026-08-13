@@ -1,0 +1,25 @@
+{
+  "name": "home",
+  "slug": "home",
+  "category": "navigation",
+  "description": "Represents home, dashboard, or primary landing navigation. On hover or trigger, a roof stroke draws and settles into place over the house outline while a doorway block slides down into the floor to open the home entrance (~450ms).",
+  "keywords": ["home", "house", "dashboard", "main", "start", "landing", "navigation"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "layered-duplication",
+    "description": "Multi-layer sequence: a roof stroke pathLength 0→1 draws down (y -1.5→0, 0.3s) before fading out, while a doorway block rect (scaleY 1→0, 0.2s, 0.15s delay) shrinks into the floor to reveal the entrance cutout. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Home",
+    "notes": "Main navigation entry point. Ensure aria-label or visible label text indicates current page state when active."
+  },
+  "status": "experimental"
+}

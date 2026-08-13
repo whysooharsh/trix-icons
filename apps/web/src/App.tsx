@@ -2,15 +2,18 @@ import React, { useRef, useState } from 'react';
 import type { AnimatedIconHandle } from '@trix/core';
 import type { GeneratedRegistry, RegistryEntry } from '@trix/registry';
 import {
+  BellIcon,
   CallIcon,
   CheckIcon,
   CopyIcon,
   DeleteIcon,
   DownloadIcon,
+  HomeIcon,
   LeetcodeIcon,
   MailIcon,
   MediumIcon,
   RefreshIcon,
+  SearchIcon,
   UploadIcon,
 } from '@trix/icons';
 import { LogoMark } from './components/LogoMark';
@@ -28,15 +31,18 @@ const COMPONENT_MAP: Record<
       React.RefAttributes<AnimatedIconHandle>
   >
 > = {
+  bell: BellIcon,
   call: CallIcon,
   check: CheckIcon,
   copy: CopyIcon,
   delete: DeleteIcon,
   download: DownloadIcon,
+  home: HomeIcon,
   leetcode: LeetcodeIcon,
   mail: MailIcon,
   medium: MediumIcon,
   refresh: RefreshIcon,
+  search: SearchIcon,
   upload: UploadIcon,
 };
 
@@ -50,10 +56,13 @@ export function App() {
   // Standalone feature refs for interactive demonstration
   const mediumFeatureRef = useRef<AnimatedIconHandle>(null);
   const leetcodeFeatureRef = useRef<AnimatedIconHandle>(null);
+  const bellFeatureRef = useRef<AnimatedIconHandle>(null);
   const callFeatureRef = useRef<AnimatedIconHandle>(null);
   const mailFeatureRef = useRef<AnimatedIconHandle>(null);
   const copyFeatureRef = useRef<AnimatedIconHandle>(null);
   const deleteFeatureRef = useRef<AnimatedIconHandle>(null);
+  const homeFeatureRef = useRef<AnimatedIconHandle>(null);
+  const searchFeatureRef = useRef<AnimatedIconHandle>(null);
   const uploadFeatureRef = useRef<AnimatedIconHandle>(null);
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
@@ -169,6 +178,10 @@ export function DialButton() {
 
           {/* Hero Live Icon Ribbon Banner */}
           <div className="hero-stage-banner">
+            <div className="hero-banner-item" title="Bell (Hover to animate)">
+              <BellIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">bell</span>
+            </div>
             <div className="hero-banner-item" title="Call (Hover to animate)">
               <CallIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">call</span>
@@ -188,6 +201,14 @@ export function DialButton() {
             <div className="hero-banner-item" title="Upload (Hover to animate)">
               <UploadIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">upload</span>
+            </div>
+            <div className="hero-banner-item" title="Search (Hover to animate)">
+              <SearchIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">search</span>
+            </div>
+            <div className="hero-banner-item" title="Home (Hover to animate)">
+              <HomeIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">home</span>
             </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />
