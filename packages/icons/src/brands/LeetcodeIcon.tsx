@@ -189,6 +189,7 @@ export const LeetcodeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}

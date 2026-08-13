@@ -11,6 +11,7 @@ import {
   MailIcon,
   MediumIcon,
   RefreshIcon,
+  UploadIcon,
 } from '@trix/icons';
 import { LogoMark } from './components/LogoMark';
 
@@ -36,6 +37,7 @@ const COMPONENT_MAP: Record<
   mail: MailIcon,
   medium: MediumIcon,
   refresh: RefreshIcon,
+  upload: UploadIcon,
 };
 
 export function App() {
@@ -52,6 +54,7 @@ export function App() {
   const mailFeatureRef = useRef<AnimatedIconHandle>(null);
   const copyFeatureRef = useRef<AnimatedIconHandle>(null);
   const deleteFeatureRef = useRef<AnimatedIconHandle>(null);
+  const uploadFeatureRef = useRef<AnimatedIconHandle>(null);
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
 
@@ -181,6 +184,10 @@ export function DialButton() {
             <div className="hero-banner-item" title="Delete (Hover to animate)">
               <DeleteIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">delete</span>
+            </div>
+            <div className="hero-banner-item" title="Upload (Hover to animate)">
+              <UploadIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">upload</span>
             </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />
@@ -410,11 +417,45 @@ export function DialButton() {
         </div>
       </section>
 
-      {/* Feature 7: Action Primitives (Wide Showcase Row) */}
+      {/* Feature 7: Conveyor Belt (Upload Icon) */}
+      <section className="section">
+        <div className="container">
+          <div className="split-feature">
+            <div>
+              <div className="feature-meta-num">07 / CONVEYOR BELT</div>
+              <h2 className="feature-heading">
+                Arrow fires up and a clone rises to replace it.
+              </h2>
+              <p className="feature-desc">
+                Two identical arrows are stacked 16 SVG units apart. On hover, the group translates y: 0→-16 (0.35s). An artboard clipPath swallows the primary arrow at the top; a tray clipPath keeps the clone hidden beneath the base until it rises into view seamlessly.
+              </p>
+              <div className="cli-bar" style={{ marginBottom: 0 }}>
+                <span className="cli-prefix">$</span>
+                <span>npx trix add upload</span>
+              </div>
+            </div>
+
+            <div
+              className="feature-stage-large"
+              onClick={() => uploadFeatureRef.current?.startAnimation()}
+            >
+              <UploadIcon
+                ref={uploadFeatureRef}
+                size={120}
+                trigger="hover"
+                color="#1e293b"
+              />
+              <span className="stage-caption">Hover to upload</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Feature 8: Action Primitives (Wide Showcase Row) */}
       <section className="section">
         <div className="container">
           <div className="feature-meta-num" style={{ marginBottom: '12px' }}>
-            07 / MOTION PRIMITIVES
+            08 / MOTION PRIMITIVES
           </div>
           <h2 className="feature-heading" style={{ marginBottom: '48px' }}>
             Directional translation and stroke completion.

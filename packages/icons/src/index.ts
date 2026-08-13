@@ -11,6 +11,7 @@ export { CopyIcon } from './actions/CopyIcon.js';
 export { DeleteIcon } from './actions/DeleteIcon.js';
 export { DownloadIcon } from './actions/DownloadIcon.js';
 export { RefreshIcon } from './actions/RefreshIcon.js';
+export { UploadIcon } from './actions/UploadIcon.js';
 
 // ─── Communication ───────────────────────────────────────────────────────────
 export { CallIcon } from './communication/CallIcon.js';
