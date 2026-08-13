@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MediumIcon — Animated Medium logo mark
+ * Story: three brand mark elements assemble left-to-right via restrained stroke trace and fill fade → settles.
  *
  * Animation: staggered-stroke-draw-to-fill
  * Three shapes (circle, ellipse, pill) draw in left-to-right,

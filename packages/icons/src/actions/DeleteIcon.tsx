@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: bin lid opens on hinge to receive item → item discarded → lid closes and icon settles.
+ */
+
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

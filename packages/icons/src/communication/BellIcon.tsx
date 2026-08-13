@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: bell body sways → clapper strikes in opposite phase → oscillation decays → settles.
+ */
+
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

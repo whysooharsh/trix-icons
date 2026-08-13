@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * MailIcon — Animated envelope
+ * Story: envelope flap opens upward to reveal interior → letter rises → settles → flap closes on leave.
  *
  * Animation: path-morph
  * On hover the envelope flap lifts upward: the outline path morphs so that

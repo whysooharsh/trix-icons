@@ -10,6 +10,7 @@
 export { CopyIcon } from './actions/CopyIcon.js';
 export { DeleteIcon } from './actions/DeleteIcon.js';
 export { DownloadIcon } from './actions/DownloadIcon.js';
+export { HeartIcon } from './actions/HeartIcon.js';
 export { RefreshIcon } from './actions/RefreshIcon.js';
 export { SearchIcon } from './actions/SearchIcon.js';
 export { UploadIcon } from './actions/UploadIcon.js';

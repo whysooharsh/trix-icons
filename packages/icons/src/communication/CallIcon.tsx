@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * CallIcon — Animated phone handset
+ * Story: handset jiggles with decaying physical ring vibration → settles into rest.
  *
  * Animation: physical-swing
  * On hover the handset decays through a ring-vibration jitter:

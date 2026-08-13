@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: arrow leaves tray and travels upward into portal → replacement arrow emerges from bottom to take its place.
+ */
+
 import { forwardRef, useCallback, useId, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

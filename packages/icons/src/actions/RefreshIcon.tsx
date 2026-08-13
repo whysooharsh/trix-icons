@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: sync/reload mechanism rotates through a complete 360° cycle → settles into rest position.
+ */
+
 import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

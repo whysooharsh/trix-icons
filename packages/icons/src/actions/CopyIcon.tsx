@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * CopyIcon — Two overlapping document sheets with a parallax peel animation.
+ * Story: document duplication → front sheet peels forward and offsets while rear sheet duplicates behind → settles.
  *
  * Animation: layered-duplication
  * On hover the two sheets para

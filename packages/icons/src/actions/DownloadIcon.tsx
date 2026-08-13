@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: arrow travels downward toward user → arrives at resting tray base → settles.
+ */
+
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

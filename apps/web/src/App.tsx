@@ -8,6 +8,7 @@ import {
   CopyIcon,
   DeleteIcon,
   DownloadIcon,
+  HeartIcon,
   HomeIcon,
   LeetcodeIcon,
   MailIcon,
@@ -37,6 +38,7 @@ const COMPONENT_MAP: Record<
   copy: CopyIcon,
   delete: DeleteIcon,
   download: DownloadIcon,
+  heart: HeartIcon,
   home: HomeIcon,
   leetcode: LeetcodeIcon,
   mail: MailIcon,
@@ -61,6 +63,7 @@ export function App() {
   const mailFeatureRef = useRef<AnimatedIconHandle>(null);
   const copyFeatureRef = useRef<AnimatedIconHandle>(null);
   const deleteFeatureRef = useRef<AnimatedIconHandle>(null);
+  const heartFeatureRef = useRef<AnimatedIconHandle>(null);
   const homeFeatureRef = useRef<AnimatedIconHandle>(null);
   const searchFeatureRef = useRef<AnimatedIconHandle>(null);
   const uploadFeatureRef = useRef<AnimatedIconHandle>(null);
@@ -209,6 +212,10 @@ export function DialButton() {
             <div className="hero-banner-item" title="Home (Hover to animate)">
               <HomeIcon size={52} trigger="hover" color="#1e293b" />
               <span className="hero-banner-label">home</span>
+            </div>
+            <div className="hero-banner-item" title="Heart (Hover to animate)">
+              <HeartIcon size={52} trigger="hover" color="#1e293b" />
+              <span className="hero-banner-label">heart</span>
             </div>
             <div className="hero-banner-item" title="Medium (Hover to animate)">
               <MediumIcon size={52} trigger="hover" color="#1e293b" />

@@ -1,5 +1,9 @@
 'use client';
 
+/**
+ * Story: checkmark stroke draws from short stem to long stem → completion pop → settles.
+ */
+
 import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';

@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * LeetcodeIcon — Animated LeetCode logo mark
+ * Story: brand mark traces in continuous gesture before fading to solid fill → settles.
  *
  * Animation: stroke-draw-to-fill
  * The entire mark traces itself in one continuous gesture (1.1s), then
