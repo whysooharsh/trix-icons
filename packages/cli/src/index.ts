@@ -11,15 +11,15 @@ function toComponentName(slug: string): string {
   return `${camel.charAt(0).toUpperCase()}${camel.slice(1)}Icon`;
 }
 
-// Resolve repository root & packages directory dynamically
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Locate registry JSON file
+// Locate registry JSON file (bundled in dist/ first)
 function loadRegistry(): GeneratedRegistry {
   const possiblePaths = [
+    path.resolve(__dirname, './icons.json'),
+    path.resolve(__dirname, '../dist/icons.json'),
     path.resolve(__dirname, '../../../registry/icons.json'),
     path.resolve(__dirname, '../../registry/icons.json'),
-    path.resolve(__dirname, '../registry/icons.json'),
     path.resolve(process.cwd(), 'node_modules/@trix/registry/dist/icons.json'),
     path.resolve(process.cwd(), 'registry/icons.json'),
   ];
@@ -44,17 +44,38 @@ function loadRegistry(): GeneratedRegistry {
   };
 }
 
-// Locate component source code for an icon
+// Locate component source code for an icon (bundled components.json first)
 function loadComponentSource(entry: RegistryEntry): string | null {
   const category = entry.category;
   const compName = toComponentName(entry.slug);
   const filename = `${compName}.tsx`;
 
+  // 1. Try bundled components.json in dist/
+  const bundledComponentsPaths = [
+    path.resolve(__dirname, './components.json'),
+    path.resolve(__dirname, '../dist/components.json'),
+  ];
+
+  for (const p of bundledComponentsPaths) {
+    if (fs.existsSync(p)) {
+      try {
+        const map = JSON.parse(fs.readFileSync(p, 'utf-8')) as Record<string, string>;
+        if (map[compName] || map[entry.slug]) {
+          return map[compName] || map[entry.slug] || null;
+        }
+      } catch {
+        // Continue
+      }
+    }
+  }
+
+  // 2. Try relative source files (monorepo mode)
   const possiblePaths = [
     path.resolve(__dirname, `../../icons/src/${category}/${filename}`),
     path.resolve(__dirname, `../../../packages/icons/src/${category}/${filename}`),
     path.resolve(process.cwd(), `packages/icons/src/${category}/${filename}`),
     path.resolve(process.cwd(), `node_modules/@trix/icons/src/${category}/${filename}`),
+    path.resolve(process.cwd(), `node_modules/@trix-icons/react/src/${category}/${filename}`),
   ];
 
   for (const p of possiblePaths) {
@@ -65,7 +86,6 @@ function loadComponentSource(entry: RegistryEntry): string | null {
   return null;
 }
 
-// Target directory auto-detection logic per CLI specification
 function detectTargetDir(customOutput?: string): string {
   if (customOutput) {
     return path.resolve(process.cwd(), customOutput);
@@ -89,7 +109,8 @@ function detectTargetDir(customOutput?: string): string {
 
 function showHelp() {
   console.log(`
-Usage: npx trix <command> [options]
+Usage: npx trix-icons <command> [options]
+       npx trix <command> [options]
 
 Commands:
   add <name...>    Install one or more animated icons into your project
@@ -104,11 +125,11 @@ Options:
   --version        Show CLI version
 
 Examples:
-  npx trix add search
-  npx trix add bell mail call --output src/ui/icons/
-  npx trix list
-  npx trix search notification
-  npx trix info bell
+  npx trix-icons add search
+  npx trix-icons add bell mail call --output src/ui/icons/
+  npx trix-icons list
+  npx trix-icons search notification
+  npx trix-icons info bell
 `);
 }
 
@@ -129,7 +150,7 @@ function listIcons(registry: GeneratedRegistry) {
       console.log(`  • ${icon.slug.padEnd(14)} ${statusBadge} ${icon.description}`);
     }
   }
-  console.log(`\nRun 'npx trix add <name>' to install an icon.\n`);
+  console.log(`\nRun 'npx trix-icons add <name>' to install an icon.\n`);
 }
 
 function searchIcons(registry: GeneratedRegistry, query: string) {
@@ -144,7 +165,7 @@ function searchIcons(registry: GeneratedRegistry, query: string) {
   );
 
   if (matches.length === 0) {
-    console.log(`\nNo icons found matching "${query}". Run 'npx trix list' to see all icons.\n`);
+    console.log(`\nNo icons found matching "${query}". Run 'npx trix-icons list' to see all icons.\n`);
     return;
   }
 
@@ -152,14 +173,14 @@ function searchIcons(registry: GeneratedRegistry, query: string) {
   for (const icon of matches) {
     console.log(`  • \x1b[1m${icon.slug}\x1b[0m (${icon.category}) — ${icon.description}`);
   }
-  console.log(`\nRun 'npx trix add <name>' to install.\n`);
+  console.log(`\nRun 'npx trix-icons add <name>' to install.\n`);
 }
 
 function infoIcon(registry: GeneratedRegistry, name: string) {
   const iconList = registry.icons || [];
   const icon = iconList.find((i) => i.slug === name.toLowerCase());
   if (!icon) {
-    console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix list' to view available icons.\n`);
+    console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix-icons list' to view available icons.\n`);
     process.exit(1);
     return;
   }
@@ -183,13 +204,13 @@ License:       ${icon.provenance?.license || 'MIT'}
 Trademark:     ${icon.provenance?.trademark ? 'Yes' : 'No'}
 
 To install:
-  npx trix add ${icon.slug}
+  npx trix-icons add ${icon.slug}
 `);
 }
 
 function addIcons(registry: GeneratedRegistry, names: string[], customOutput?: string, force = false) {
   if (names.length === 0) {
-    console.error(`\nError: Please specify at least one icon name to add.\nExample: npx trix add search\n`);
+    console.error(`\nError: Please specify at least one icon name to add.\nExample: npx trix-icons add search\n`);
     process.exit(1);
     return;
   }
@@ -208,7 +229,7 @@ function addIcons(registry: GeneratedRegistry, names: string[], customOutput?: s
     const entry = iconList.find((i) => i.slug === slug);
 
     if (!entry) {
-      console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix list' to see available icons.\n`);
+      console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix-icons list' to see available icons.\n`);
       continue;
     }
 
@@ -228,7 +249,7 @@ function addIcons(registry: GeneratedRegistry, names: string[], customOutput?: s
         continue;
       } else {
         console.log(`\nWarning: ${compName}.tsx already exists and differs.`);
-        console.log(`  Use '--force' to overwrite: npx trix add ${entry.slug} --force\n`);
+        console.log(`  Use '--force' to overwrite: npx trix-icons add ${entry.slug} --force\n`);
         continue;
       }
     }
@@ -298,7 +319,7 @@ export function main() {
       infoIcon(registry, commandArgs[0] || '');
       break;
     default:
-      console.error(`\nError: Unknown command "${command}". Run 'npx trix --help' for usage.\n`);
+      console.error(`\nError: Unknown command "${command}". Run 'npx trix-icons --help' for usage.\n`);
       process.exit(1);
   }
 }

@@ -221,8 +221,8 @@ async function validateIcon(category, name) {
         warnings.push(`${source}: "icon.svg" may contain hardcoded colors. UI icons should use currentColor.`);
       }
 
-      // Check for width/height on root svg
-      const rootSvgPattern = /<svg[^>]*(?:width|height)=["'][^"']*["'][^>]*>/;
+      // Check for width/height on root svg (ensure stroke-width is not matched)
+      const rootSvgPattern = /<svg[^>]*(?:\s|^)(?:width|height)\s*=\s*["'][^"']*["'][^>]*>/;
       if (rootSvgPattern.test(svgContent)) {
         warnings.push(`${source}: "icon.svg" root <svg> should not have width or height attributes — these are set via the size prop.`);
       }

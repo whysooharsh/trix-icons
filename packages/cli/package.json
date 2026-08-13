@@ -16,7 +16,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm",
+    "build": "tsup src/index.ts --format esm && node scripts/bundle-assets.js",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

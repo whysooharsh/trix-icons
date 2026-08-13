@@ -1,15 +1,25 @@
 {
   "name": "trix-icons",
   "version": "0.1.0",
-  "private": true,
-  "description": "A carefully designed animated icon system where motion is intentional, source code is owned by developers, and APIs are predictable.",
+  "description": "Source-distribution CLI installer for trix-icons animated React icon components",
   "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "trix": "./bin/trix.js",
+    "trix-icons": "./bin/trix.js"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "workspaces": [
     "packages/*",
     "apps/*"
   ],
   "scripts": {
-    "build": "turbo build",
+    "build": "turbo build && tsup packages/cli/src/index.ts --format esm --out-dir dist && node scripts/bundle-cli-assets.js",
     "dev": "turbo dev",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
@@ -19,6 +29,8 @@
     "icons:validate": "node scripts/validate-icons.js"
   },
   "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsup": "^8.0.0",
     "turbo": "^2.0.0",
     "typescript": "^5.4.0"
   },
