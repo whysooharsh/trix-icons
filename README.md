@@ -1,175 +1,76 @@
 # trix-icons
 
-An animated icon system where motion is intentional, source code is yours, and APIs are predictable.
+An animated React icon system built on a source-distribution model. Every icon embodies a tiny, intentional interaction story.
 
----
+## Overview
 
-## What it is
+`trix-icons` provides animated SVG icon components where motion derives from semantic meaning.
 
-trix-icons is a library of animated SVG icon components for React.
+You can install individual component source files directly into your project via the CLI (`npx trix add <icon-name>`) or consume the package directly via `@trix/icons`.
 
-The defining characteristic is the distribution model: you install individual component source files directly into your project using the CLI. You own the code. You can read it, modify it, and adapt it without forking a library.
+## Quick Start
+
+### 1. Source-Distribution via CLI
+
+Install component source files directly into your codebase:
 
 ```bash
-npx trix add download
-npx trix add github search mail
+# Install an animated icon component into your project
+npx trix add search
+
+# Install multiple icons
+npx trix add bell mail call search
+
+# Target a custom folder
+npx trix add download --output src/ui/icons/
 ```
 
-Each icon has a single animation that derives from the icon's meaning. A download icon moves downward. A bell swings. A check mark draws its stroke. Motion is not applied uniformly — it is designed per icon.
+### 2. Standard NPM Import
 
----
+Alternatively, import React components directly from `@trix/icons`:
 
-## Status
-
-Phase 1 complete: architecture, contracts, documentation, quality gates.
-
-Phase 2 in progress: initial icon set (12–15 icons).
-
-The CLI and website are not yet available. See [ROADMAP.md](./ROADMAP.md) for current status.
-
----
-
-## Project Structure
-
+```bash
+npm install @trix/icons motion react
 ```
-trix-icons/
-├── packages/
-│   ├── core/        Shared types and contracts
-│   ├── icons/       React component implementations
-│   └── registry/    Registry schema and validation
-├── apps/
-│   ├── web/         Documentation website (Phase 4)
-│   └── cli/         Installation CLI (Phase 3)
-├── icons/           Canonical SVG source + metadata
-└── registry/        Generated icon manifest
-```
-
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full architecture and design decisions.
-
----
-
-## Design Principles
-
-1. Motion derives from meaning, not aesthetic preference
-2. Source code ownership over hosted runtime dependency
-3. One source of truth: `icons/` → registry → website + CLI
-4. Fail loudly when something is wrong
-5. Brand icons are documented as brand assets, not original artwork
-
-See [DESIGN_PRINCIPLES.md](./DESIGN_PRINCIPLES.md) and [ANIMATION_GUIDELINES.md](./ANIMATION_GUIDELINES.md).
-
----
-
-## Animation
-
-Each icon animation is designed individually.
-
-| Icon | Animation |
-|------|-----------|
-| download | Arrow translates downward toward a surface |
-| upload | Arrow translates upward from a surface |
-| mail | Envelope flap opens |
-| bell | Physical pendulum swing |
-| check | Stroke path draws |
-| refresh | Full rotation |
-| menu | Lines transform into close (×) |
-| play | Shapes transition toward pause state |
-| trash | Lid rotates open |
-| lock | Shackle moves |
-| search | Handle shifts with arc accent |
-| copy | Second layer offsets to suggest duplication |
-
-See [ANIMATION_GUIDELINES.md](./ANIMATION_GUIDELINES.md) for the full motion system.
-
----
-
-## Icon Categories
-
-| Category | Contents |
-|----------|---------|
-| `actions` | download, upload, copy, refresh, search |
-| `navigation` | menu, close, back, arrow |
-| `communication` | mail, bell, chat, send |
-| `media` | play, pause, volume, mute |
-| `system` | trash, settings, lock, eye, check |
-| `brands` | github, leetcode, and others — see provenance notes |
-| `experimental` | Icons in development, not yet stable |
-
----
-
-## Brand Icons
-
-Brand icons are animated treatments of third-party marks.
-
-The animation code is original work by trix-icons (MIT License).
-The underlying marks belong to their respective trademark owners.
-
-All brand icons include explicit provenance metadata. See [PROVENANCE.md](./PROVENANCE.md).
-
----
-
-## Component API
 
 ```tsx
-import { DownloadIcon } from "./components/icons/DownloadIcon";
+import { SearchIcon, BellIcon, MailIcon } from '@trix/icons';
 
-// Default: animates on hover
-<DownloadIcon />
-
-// Custom size and trigger
-<DownloadIcon size={32} trigger="hover" />
-
-// Programmatic control
-const ref = useRef<AnimatedIconHandle>(null);
-<DownloadIcon ref={ref} trigger="manual" />
-ref.current?.startAnimation();
-ref.current?.resetAnimation();
-```
-
-### Props
-
-```ts
-interface AnimatedIconProps {
-  size?: number | string;      // Default: 24
-  color?: string;              // Default: "currentColor"
-  strokeWidth?: number;        // Default: 2 (stroke-based icons)
-  className?: string;
-  trigger?: "hover" | "focus" | "press" | "manual" | "none";
-  disabled?: boolean;
-  "aria-label"?: string;       // Required for standalone informative use
+export function Header() {
+  return (
+    <nav>
+      <SearchIcon size={24} trigger="hover" />
+      <BellIcon size={24} trigger="hover" />
+      <MailIcon size={24} trigger="hover" />
+    </nav>
+  );
 }
 ```
 
-### Ref handle
+## Packages in Monorepo
 
-```ts
-interface AnimatedIconHandle {
-  startAnimation(): void;
-  stopAnimation(): void;
-  resetAnimation(): void;
-}
-```
+| Package | Description | Version |
+| --- | --- | --- |
+| `trix-icons` (`apps/cli`) | Source-distribution CLI binary | `0.1.0` |
+| `@trix/icons` (`packages/icons`) | React animated icon components | `0.1.0` |
+| `@trix/core` (`packages/core`) | Shared contracts and motion tokens | `0.1.0` |
+| `@trix/registry` (`packages/registry`) | Registry schema and metadata index | `0.1.0` |
 
----
+## Available Icons (14 Total)
 
-## Contributing
+- **Actions**: `copy`, `delete`, `download`, `heart`, `refresh`, `search`, `upload`
+- **Communication**: `bell`, `call`, `mail`
+- **Navigation**: `home`
+- **System**: `check`
+- **Brands**: `medium`, `leetcode`
 
-Read [CONTRIBUTING.md](./CONTRIBUTING.md).
+## Governance & Security
 
-Read [ICON_AUTHORING.md](./ICON_AUTHORING.md) before adding an icon.
-
-Icons are accepted one at a time with a completed design brief. Large batches of AI-generated icons without individual review are not accepted.
-
----
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Security Policy](./SECURITY.md)
+- [Changelog](./CHANGELOG.md)
+- [License](./LICENSE)
 
 ## License
 
-MIT — for original animations and library code.
-
-Brand marks are trademarks of their respective owners. See [PROVENANCE.md](./PROVENANCE.md) for per-icon attribution.
-
----
-
-## For AI Agents
-
-Read [AGENTS.md](./AGENTS.md) before taking any action in this repository.
+MIT License.

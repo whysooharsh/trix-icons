@@ -8,8 +8,10 @@ import { forwardRef, useCallback, useImperativeHandle } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
 
-const FLAP_CLOSED = 'M3 7L12 13L21 7';
-const FLAP_OPEN = 'M3 7L12 1L21 7';
+// Anchor flap endpoints at (5, 7) and (19, 7) so stroke caps overlap seamlessly
+// with the envelope rect's top horizontal stroke, eliminating corner knobs.
+const FLAP_CLOSED = 'M5 7L12 13L19 7';
+const FLAP_OPEN = 'M5 7L12 2.5L19 7';
 
 const MORPH_EASE = [0.65, 0, 0.35, 1] as const;
 const DURATION = 0.35;
@@ -35,7 +37,7 @@ export const MailIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled) return;
       const t = { duration: DURATION, ease: MORPH_EASE };
       flapCtrl.start({ d: FLAP_OPEN, transition: t });
-      letterCtrl.start({ y: -4, opacity: 1, transition: { duration: DURATION, ease: MORPH_EASE, delay: 0.05 } });
+      letterCtrl.start({ y: -3.5, opacity: 1, transition: { duration: DURATION, ease: MORPH_EASE, delay: 0.05 } });
     }, [prefersReducedMotion, disabled, flapCtrl, letterCtrl]);
 
     const stopAnimation = useCallback(() => {
@@ -113,7 +115,7 @@ export const MailIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           {...sharedPathProps}
         />
 
-        {/* Envelope Flap — morphs from pointing down (Y=13) to pointing up (Y=1) */}
+        {/* Envelope Flap — morphs from pointing down (Y=13) to pointing up (Y=2.5) */}
         <motion.path
           animate={flapCtrl}
           initial={{ d: FLAP_CLOSED }}

@@ -1,8 +1,7 @@
 {
   "name": "@trix/core",
   "version": "0.1.0",
-  "private": true,
-  "description": "Shared types and contracts for trix-icons",
+  "description": "Shared types, contracts, and motion tokens for trix-icons",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,6 +11,11 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsup src/index.ts --format esm --dts",
     "typecheck": "tsc --noEmit"
