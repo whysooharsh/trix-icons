@@ -1,17 +1,16 @@
 'use client';
 
 /**
- * Story: heart outline stroke draws → double heartbeat pulse → fills and settles.
+ * Story: heart outline forms → completes → beats twice with small physical pulse → settles.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_DRAW, EASE_STANDARD } from '@trix/core';
 
-const DURATION_DRAW = 0.3;
-const DURATION_PULSE = 0.35;
-const EASE_DRAW = [0.65, 0, 0.35, 1] as const;
-const EASE_PULSE = 'easeInOut' as const;
+const DURATION_DRAW = 0.28;
+const DURATION_BEAT = 0.32;
 
 export const HeartIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function HeartIcon(
@@ -34,19 +33,20 @@ export const HeartIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      // Phase 1: Stroke draw
+      // Phase 1: Heart outline forms
       await ctrl.start({
         pathLength: [0, 1],
         scale: 1,
         transition: { duration: DURATION_DRAW, ease: EASE_DRAW },
       });
 
-      // Phase 2: Double heartbeat pulse
+      // Phase 2: Rhythmic double heartbeat pulse
       await ctrl.start({
-        scale: [1, 1.16, 0.98, 1.08, 1],
-        transition: { duration: DURATION_PULSE, ease: EASE_PULSE },
+        scale: [1, 1.12, 0.98, 1.06, 1],
+        transition: { duration: DURATION_BEAT, ease: EASE_STANDARD },
       });
 
+      ctrl.set({ pathLength: 1, scale: 1 });
       isAnimatingRef.current = false;
     }, [ctrl, prefersReducedMotion, disabled]);
 

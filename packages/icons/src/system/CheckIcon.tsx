@@ -4,9 +4,13 @@
  * Story: checkmark stroke draws from short stem to long stem → completion pop → settles.
  */
 
-import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_DRAW, EASE_SETTLE } from '@trix/core';
+
+const DURATION_DRAW = 0.28;
+const DURATION_SETTLE = 0.16;
 
 export const CheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function CheckIcon(
@@ -23,21 +27,38 @@ export const CheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) {
     const ctrl = useAnimation();
     const prefersReducedMotion = useReducedMotion();
+    const isAnimatingRef = useRef(false);
 
-    const startAnimation = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      ctrl.start({
+    const startAnimation = useCallback(async () => {
+      if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
+
+      // 1. Checkmark stroke draws cleanly from start to finish
+      await ctrl.start({
         pathLength: [0, 1],
-        transition: { duration: 0.35, ease: 'easeOut' },
+        scale: 1,
+        transition: { duration: DURATION_DRAW, ease: EASE_DRAW },
       });
-    }, [prefersReducedMotion, disabled, ctrl]);
+
+      // 2. Tiny completion settle
+      await ctrl.start({
+        scale: [1, 1.06, 1],
+        transition: { duration: DURATION_SETTLE, ease: EASE_SETTLE },
+      });
+
+      ctrl.set({ pathLength: 1, scale: 1 });
+      isAnimatingRef.current = false;
+    }, [ctrl, prefersReducedMotion, disabled]);
 
     const stopAnimation = useCallback(() => {
+      isAnimatingRef.current = false;
       ctrl.stop();
     }, [ctrl]);
 
     const resetAnimation = useCallback(() => {
-      ctrl.set({ pathLength: 1 });
+      isAnimatingRef.current = false;
+      ctrl.stop();
+      ctrl.set({ pathLength: 1, scale: 1 });
     }, [ctrl]);
 
     useImperativeHandle(
@@ -47,7 +68,7 @@ export const CheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     );
 
     const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
-    const onPointerDown = trigger === 'press' && !disabled ? startAnimation : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
 
     const accessibilityProps = ariaLabel
@@ -61,9 +82,15 @@ export const CheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         width={size}
         height={size}
         className={className}
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}
@@ -73,13 +100,9 @@ export const CheckIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       >
         <motion.path
           d="M20 6L9 17l-5-5"
-          fill="none"
-          stroke={color}
-          strokeWidth={strokeWidth}
-          strokeLinecap="round"
-          strokeLinejoin="round"
           animate={ctrl}
-          initial={{ pathLength: 1 }}
+          initial={{ pathLength: 1, scale: 1 }}
+          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
         />
       </svg>
     );

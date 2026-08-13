@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Story: magnifier searches around in a smooth arc → returns to center → "aha, found it!" spring pop → settles.
+ * Story: magnifier actively searches → moves through small search pattern → finds something → subtle 1.06 scale "found" response → settles.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
@@ -9,8 +9,8 @@ import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
 import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
 
-const DURATION_SEARCH = 0.42;
-const DURATION_POP = 0.22;
+const DURATION_SEARCH = 0.38;
+const DURATION_POP = 0.18;
 
 export const SearchIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function SearchIcon(
@@ -33,11 +33,11 @@ export const SearchIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      // Phase 1: Smooth 2D searching arc glide
+      // 1. Search pattern: left/up -> right/down -> center
       await ctrl.start({
-        x: [0, -2.5, 0, 2.5, 0],
-        y: [0, -1.5, -2.5, -1.0, 0],
-        rotate: [0, -6, 2, 6, 0],
+        x: [0, -2, 2, 0],
+        y: [0, -1.5, 0.5, 0],
+        rotate: [0, -5, 5, 0],
         scale: 1,
         transition: {
           duration: DURATION_SEARCH,
@@ -45,9 +45,9 @@ export const SearchIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         },
       });
 
-      // Phase 2: "Aha! Found it!" spring pop upon returning to center
+      // 2. Target found pop & settle
       await ctrl.start({
-        scale: [1, 1.15, 0.96, 1],
+        scale: [1, 1.06, 1],
         transition: {
           duration: DURATION_POP,
           ease: EASE_BOUNCE,

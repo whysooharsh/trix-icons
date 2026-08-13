@@ -4,9 +4,12 @@
  * Story: sync/reload mechanism rotates through a complete 360° cycle → settles into rest position.
  */
 
-import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_SETTLE } from '@trix/core';
+
+const DURATION = 0.5;
 
 export const RefreshIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function RefreshIcon(
@@ -23,20 +26,32 @@ export const RefreshIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) {
     const ctrl = useAnimation();
     const prefersReducedMotion = useReducedMotion();
+    const isAnimatingRef = useRef(false);
 
-    const startAnimation = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      ctrl.start({
-        rotate: 180,
-        transition: { duration: 0.45, ease: [0.34, 1.56, 0.64, 1] },
+    const startAnimation = useCallback(async () => {
+      if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
+
+      await ctrl.start({
+        rotate: [0, 360],
+        transition: {
+          duration: DURATION,
+          ease: EASE_SETTLE,
+        },
       });
-    }, [prefersReducedMotion, disabled, ctrl]);
+
+      ctrl.set({ rotate: 0 });
+      isAnimatingRef.current = false;
+    }, [ctrl, prefersReducedMotion, disabled]);
 
     const stopAnimation = useCallback(() => {
+      isAnimatingRef.current = false;
       ctrl.stop();
     }, [ctrl]);
 
     const resetAnimation = useCallback(() => {
+      isAnimatingRef.current = false;
+      ctrl.stop();
       ctrl.set({ rotate: 0 });
     }, [ctrl]);
 
@@ -47,8 +62,7 @@ export const RefreshIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     );
 
     const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
-    const onMouseLeave = trigger === 'hover' && !disabled ? resetAnimation : undefined;
-    const onPointerDown = trigger === 'press' && !disabled ? startAnimation : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
 
     const accessibilityProps = ariaLabel
@@ -62,13 +76,18 @@ export const RefreshIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         width={size}
         height={size}
         className={className}
+        fill="none"
+        stroke={color}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeLinejoin="round"
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         onPointerDown={onPointerDown}
         onFocus={onFocus}
         {...accessibilityProps}
@@ -76,40 +95,15 @@ export const RefreshIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         <motion.g
           animate={ctrl}
           initial={{ rotate: 0 }}
-          style={{ transformOrigin: '12px 12px' }}
+          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
         >
-          <path
-            d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M3 3v5h5"
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M16 16h5v5"
-            fill="none"
-            stroke={color}
-            strokeWidth={strokeWidth}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          {/* Top arc and arrowhead */}
+          <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+          <path d="M3 3v5h5" />
+
+          {/* Bottom arc and arrowhead */}
+          <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+          <path d="M21 21v-5h-5" />
         </motion.g>
       </svg>
     );

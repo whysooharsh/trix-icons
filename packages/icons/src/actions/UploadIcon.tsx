@@ -1,15 +1,15 @@
 'use client';
 
 /**
- * Story: arrow leaves tray and travels upward into portal → replacement arrow emerges from bottom to take its place.
+ * Story: arrow leaves the tray → moves upward → replacement arrow follows → continuous transfer illusion.
  */
 
 import { forwardRef, useCallback, useId, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_DRAW } from '@trix/core';
 
 const DURATION = 0.45;
-const EASE = [0.65, 0, 0.35, 1] as const;
 
 export const UploadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function UploadIcon(
@@ -34,14 +34,16 @@ export const UploadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     const startAnimation = useCallback(async () => {
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
+
       ctrl.set({ y: 0 });
       await ctrl.start({
         y: -16,
         transition: {
           duration: DURATION,
-          ease: EASE,
+          ease: EASE_DRAW,
         },
       });
+
       ctrl.set({ y: 0 });
       isAnimatingRef.current = false;
     }, [ctrl, prefersReducedMotion, disabled]);
@@ -64,7 +66,7 @@ export const UploadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     );
 
     const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
-    const onPointerDown = trigger === 'press' && !disabled ? startAnimation : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
 
     const accessibilityProps = ariaLabel

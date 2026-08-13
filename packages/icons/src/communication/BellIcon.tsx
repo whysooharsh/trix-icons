@@ -1,19 +1,20 @@
 'use client';
 
 /**
- * Story: bell body sways → clapper strikes in opposite phase → oscillation decays → settles.
+ * Story: ring → clapper strikes → oscillation decays → silence.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
 
-const DURATION = 0.7;
+const DURATION = 0.65;
 const EASE = 'easeInOut' as const;
 const TIMES = [0, 0.2, 0.4, 0.6, 0.8, 1] as const;
 
-const BODY_ROTATION = [0, 8, -6, 4, -2, 0] as const;
-const CLAPPER_ROTATION = [0, -14, 11, -8, 5, 0] as const;
+// Subtle body sway, stronger clapper strike
+const BODY_ROTATION = [0, 5, -4, 2, -1, 0] as const;
+const CLAPPER_ROTATION = [0, -16, 12, -8, 4, 0] as const;
 
 export const BellIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function BellIcon(
@@ -46,6 +47,8 @@ export const BellIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         transition: { duration: DURATION, ease: EASE, times: [...TIMES] },
       });
 
+      bodyCtrl.set({ rotate: 0 });
+      clapperCtrl.set({ rotate: 0 });
       isAnimatingRef.current = false;
     }, [bodyCtrl, clapperCtrl, prefersReducedMotion, disabled]);
 

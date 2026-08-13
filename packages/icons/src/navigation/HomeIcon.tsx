@@ -1,12 +1,16 @@
 'use client';
 
 /**
- * Story: roof line draws and settles → doorway block slides down into floor to reveal entrance → settles.
+ * Story: roof line subtly lifts → doorway block slides down into floor to reveal entrance → settles.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
+
+const DURATION_ROOF = 0.28;
+const DURATION_DOOR = 0.22;
 
 export const HomeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function HomeIcon(
@@ -29,25 +33,23 @@ export const HomeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      doorCtrl.set({ scaleY: 1, opacity: 1 });
-      roofCtrl.set({ pathLength: 0, opacity: 1, y: -1.5 });
-
+      // 1. Roof stroke lifts
       roofCtrl.start({
-        pathLength: 1,
-        y: 0,
-        transition: { duration: 0.3, ease: 'easeOut' },
-      }).then(() => {
-        roofCtrl.start({
-          opacity: 0,
-          transition: { duration: 0.15, ease: 'easeOut' },
-        });
+        y: [0, -2, 0],
+        opacity: [0.3, 1, 0],
+        pathLength: [0, 1, 1],
+        transition: { duration: DURATION_ROOF, ease: EASE_STANDARD },
       });
 
+      // 2. Doorway reveals entrance by sliding into floor
+      doorCtrl.set({ scaleY: 1, opacity: 1 });
       await doorCtrl.start({
         scaleY: 0,
-        transition: { delay: 0.15, duration: 0.2, ease: 'easeInOut' },
+        transition: { delay: 0.1, duration: DURATION_DOOR, ease: EASE_BOUNCE },
       });
 
+      roofCtrl.set({ y: 0, opacity: 0, pathLength: 0 });
+      doorCtrl.set({ scaleY: 0, opacity: 0 });
       isAnimatingRef.current = false;
     }, [doorCtrl, roofCtrl, prefersReducedMotion, disabled]);
 
@@ -61,7 +63,7 @@ export const HomeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       isAnimatingRef.current = false;
       roofCtrl.stop();
       doorCtrl.stop();
-      roofCtrl.set({ pathLength: 0, opacity: 0, y: 0 });
+      roofCtrl.set({ y: 0, opacity: 0, pathLength: 0 });
       doorCtrl.set({ scaleY: 0, opacity: 0 });
     }, [doorCtrl, roofCtrl]);
 
@@ -92,10 +94,13 @@ export const HomeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         onFocus={onFocus}
         {...accessibilityProps}
       >
+        {/* Solid filled house body — always 100% visible */}
         <path
           fill={color}
           d="M6 19h3v-6h6v6h3v-9l-6-4.5L6 10zm-2 2V9l8-6l8 6v12h-7v-6h-2v6zm8-8.75"
         />
+
+        {/* Roof highlight stroke — lifts on hover */}
         <motion.path
           d="M 5 9.5 L 12 4.25 L 19 9.5"
           stroke={color}
@@ -106,6 +111,8 @@ export const HomeIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           initial={{ pathLength: 0, opacity: 0, y: 0 }}
           animate={roofCtrl}
         />
+
+        {/* Door cutout block — slides down into floor */}
         <motion.rect
           x="11"
           y="15"

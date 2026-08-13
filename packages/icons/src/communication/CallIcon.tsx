@@ -1,36 +1,15 @@
 'use client';
 
 /**
- * Story: handset jiggles with decaying physical ring vibration → settles into rest.
- *
- * Animation: physical-swing
- * On hover the handset decays through a ring-vibration jitter:
- * rotation oscillates ±10° → 0° while a horizontal buzz of ±0.6px
- * layers on top. The full 0.6s decay sequence loops continuously
- * while hovered and snaps to rest the moment the cursor leaves.
- *
- * The jitter keyframes are taken directly from the user's SMIL original
- * (animateTransform type="rotate" + type="translate") and replayed
- * here via motion/react's keyframe array syntax.
- *
- * Reduced motion: static — no animation plays.
+ * Story: handset shifts and rotates into answered position → settles.
  */
 
-import { forwardRef, useCallback, useImperativeHandle } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
 
-// ─── Jitter keyframes ─────────────────────────────────────────────────────────
-//
-// Nine steps of decaying amplitude matching the SMIL original exactly.
-// Rotation (degrees) and horizontal translation (SVG units) share the same
-// easing and timing array so they stay in phase throughout each cycle.
-
-const ROTATE_KF = [0, -10, 9, -8, 7, -5, 4, -2, 1, 0] as const;
-const X_KF = [0, 0.6, -0.6, 0.5, -0.5, 0.3, -0.3, 0.15, -0.15, 0] as const;
-const KF_TIMES = [0, 0.11, 0.22, 0.33, 0.44, 0.55, 0.66, 0.77, 0.88, 1] as const;
-
-// ─── Component ────────────────────────────────────────────────────────────────
+const DURATION = 0.45;
 
 export const CallIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function CallIcon(
@@ -46,31 +25,37 @@ export const CallIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   ) {
     const ctrl = useAnimation();
     const prefersReducedMotion = useReducedMotion();
+    const isAnimatingRef = useRef(false);
 
-    // Immediately stop the jitter and return to resting orientation.
-    // Called on hover-leave, blur, pointer-up, stopAnimation, resetAnimation.
-    const snapToRest = useCallback(() => {
-      ctrl.stop();
-      ctrl.set({ rotate: 0, x: 0 });
-    }, [ctrl]);
+    const startAnimation = useCallback(async () => {
+      if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
 
-    // Start the continuous decay-jitter loop.
-    const startAnimation = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      ctrl.start({
-        rotate: [...ROTATE_KF],
-        x: [...X_KF],
+      // Handset lifts and rotates into answered orientation
+      await ctrl.start({
+        rotate: [0, 18, -4, 0],
+        x: [0, -1.5, 0],
+        y: [0, -1.5, 0],
         transition: {
-          duration: 0.6,
-          ease: 'easeInOut',
-          times: [...KF_TIMES],
-          repeat: Infinity,
+          duration: DURATION,
+          ease: EASE_STANDARD,
         },
       });
-    }, [prefersReducedMotion, disabled, ctrl]);
 
-    const stopAnimation = useCallback(() => snapToRest(), [snapToRest]);
-    const resetAnimation = useCallback(() => snapToRest(), [snapToRest]);
+      ctrl.set({ rotate: 0, x: 0, y: 0 });
+      isAnimatingRef.current = false;
+    }, [ctrl, prefersReducedMotion, disabled]);
+
+    const stopAnimation = useCallback(() => {
+      isAnimatingRef.current = false;
+      ctrl.stop();
+    }, [ctrl]);
+
+    const resetAnimation = useCallback(() => {
+      isAnimatingRef.current = false;
+      ctrl.stop();
+      ctrl.set({ rotate: 0, x: 0, y: 0 });
+    }, [ctrl]);
 
     useImperativeHandle(
       ref,
@@ -78,14 +63,9 @@ export const CallIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       [startAnimation, stopAnimation, resetAnimation]
     );
 
-    // ─── Event handlers ───────────────────────────────────────────────────────
-
     const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
-    const onMouseLeave = trigger === 'hover' && !disabled ? snapToRest : undefined;
-    const onPointerDown = trigger === 'press' && !disabled ? startAnimation : undefined;
-    const onPointerUp = trigger === 'press' && !disabled ? snapToRest : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
-    const onBlur = trigger === 'focus' && !disabled ? snapToRest : undefined;
 
     const accessibilityProps = ariaLabel
       ? ({ role: 'img', 'aria-label': ariaLabel } as const)
@@ -101,24 +81,17 @@ export const CallIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
         onFocus={onFocus}
-        onBlur={onBlur}
         {...accessibilityProps}
       >
-        {/*
-          transform-box: fill-box + transform-origin: center matches
-          transform-origin="12 12" from the SMIL original, keeping the
-          rotation pivot at the icon's geometric centre.
-        */}
         <motion.g
           animate={ctrl}
-          initial={{ rotate: 0, x: 0 }}
+          initial={{ rotate: 0, x: 0, y: 0 }}
           style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
         >
           <path

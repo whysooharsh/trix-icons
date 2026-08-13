@@ -1,15 +1,16 @@
 'use client';
 
 /**
- * Story: bin lid opens on hinge to receive item → item discarded → lid closes and icon settles.
+ * Story: lid opens on hinge → discarded item drops into bin → lid closes and settles.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
 
-const LID_DURATION = 0.3;
-const PRESS_DURATION = 0.1;
+const DURATION_OPEN = 0.25;
+const DURATION_DROP = 0.22;
 
 export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function DeleteIcon(
@@ -23,36 +24,52 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     },
     ref
   ) {
-    const svgCtrl = useAnimation();
+    const lidCtrl = useAnimation();
+    const itemCtrl = useAnimation();
     const prefersReducedMotion = useReducedMotion();
-    const isHoveredRef = useRef(false);
-    const [lidOpen, setLidOpen] = useState(false);
+    const isAnimatingRef = useRef(false);
 
-    const openLid = useCallback(() => setLidOpen(true), []);
-    const closeLid = useCallback(() => setLidOpen(false), []);
+    const startAnimation = useCallback(async () => {
+      if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
 
-    const pressDown = useCallback(() => {
-      svgCtrl.start({ scale: 0.92, transition: { duration: PRESS_DURATION, ease: 'easeOut' } });
-    }, [svgCtrl]);
+      // 1. Lid opens on left-hinge
+      lidCtrl.start({
+        rotate: -30,
+        transition: { duration: DURATION_OPEN, ease: EASE_BOUNCE },
+      });
 
-    const pressUp = useCallback(() => {
-      svgCtrl.start({ scale: 1, transition: { duration: PRESS_DURATION, ease: 'easeOut' } });
-    }, [svgCtrl]);
+      // 2. Discarded item drops into bin and fades out
+      await itemCtrl.start({
+        y: [0, 8],
+        opacity: [1, 0],
+        transition: { duration: DURATION_DROP, ease: EASE_STANDARD, delay: 0.05 },
+      });
 
-    const startAnimation = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      openLid();
-    }, [prefersReducedMotion, disabled, openLid]);
+      // 3. Lid snaps closed
+      await lidCtrl.start({
+        rotate: 0,
+        transition: { duration: DURATION_OPEN * 0.8, ease: EASE_STANDARD },
+      });
+
+      itemCtrl.set({ y: 0, opacity: 0 });
+      lidCtrl.set({ rotate: 0 });
+      isAnimatingRef.current = false;
+    }, [lidCtrl, itemCtrl, prefersReducedMotion, disabled]);
 
     const stopAnimation = useCallback(() => {
-      svgCtrl.stop();
-    }, [svgCtrl]);
+      isAnimatingRef.current = false;
+      lidCtrl.stop();
+      itemCtrl.stop();
+    }, [lidCtrl, itemCtrl]);
 
     const resetAnimation = useCallback(() => {
-      isHoveredRef.current = false;
-      closeLid();
-      pressUp();
-    }, [closeLid, pressUp]);
+      isAnimatingRef.current = false;
+      lidCtrl.stop();
+      itemCtrl.stop();
+      lidCtrl.set({ rotate: 0 });
+      itemCtrl.set({ y: 0, opacity: 0 });
+    }, [lidCtrl, itemCtrl]);
 
     useImperativeHandle(
       ref,
@@ -60,34 +77,9 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       [startAnimation, stopAnimation, resetAnimation]
     );
 
-    const handleMouseEnter = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      isHoveredRef.current = true;
-      openLid();
-    }, [prefersReducedMotion, disabled, openLid]);
-
-    const handleMouseLeave = useCallback(() => {
-      isHoveredRef.current = false;
-      closeLid();
-      pressUp();
-    }, [closeLid, pressUp]);
-
-    const handlePointerDown = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      pressDown();
-    }, [prefersReducedMotion, disabled, pressDown]);
-
-    const handlePointerUp = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      pressUp();
-    }, [prefersReducedMotion, disabled, pressUp]);
-
-    const onMouseEnter = trigger === 'hover' && !disabled ? handleMouseEnter : undefined;
-    const onMouseLeave = trigger === 'hover' && !disabled ? handleMouseLeave : undefined;
-    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? handlePointerDown : undefined;
-    const onPointerUp = (trigger === 'hover' || trigger === 'press') && !disabled ? handlePointerUp : undefined;
+    const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
-    const onBlur = trigger === 'focus' && !disabled ? resetAnimation : undefined;
 
     const accessibilityProps = ariaLabel
       ? ({ role: 'img', 'aria-label': ariaLabel } as const)
@@ -100,37 +92,43 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         width={size}
         height={size}
         className={className}
-        style={{ color, display: 'block', overflow: 'visible', ...(disabled && { pointerEvents: 'none' }) }}
+        style={{
+          color,
+          display: 'block',
+          overflow: 'visible',
+          ...(disabled && { pointerEvents: 'none' }),
+        }}
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
         onPointerDown={onPointerDown}
-        onPointerUp={onPointerUp}
         onFocus={onFocus}
-        onBlur={onBlur}
         {...accessibilityProps}
       >
-        <motion.g
-          animate={svgCtrl}
-          initial={{ scale: 1 }}
-          style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
-        >
-          <path
-            fill={color}
-            fillRule="evenodd"
-            d="M7 21q-.825 0-1.412-.587T5 19V6h14v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z"
-          />
-          <path
-            fill={color}
-            d="M4 6V4h5V3h6v1h5v2Z"
-            style={{
-              transformOrigin: '4px 6px',
-              transform: lidOpen ? 'rotate(-25deg)' : 'rotate(0deg)',
-              transition: prefersReducedMotion
-                ? 'none'
-                : `transform ${LID_DURATION}s cubic-bezier(0.34, 1.56, 0.64, 1)`,
-            }}
-          />
-        </motion.g>
+        {/* Item dropping into the bin */}
+        <motion.rect
+          x="11"
+          y="7"
+          width="2"
+          height="4"
+          rx="0.5"
+          fill={color}
+          initial={{ y: 0, opacity: 0 }}
+          animate={itemCtrl}
+        />
+
+        {/* Bin lid — rotates -30 deg around hinge (4px, 6px) */}
+        <motion.path
+          fill={color}
+          d="M4 6V4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5V6H4zm5-1.5h6v1.5H9V4.5z"
+          style={{ transformOrigin: '4px 6px' }}
+          animate={lidCtrl}
+          initial={{ rotate: 0 }}
+        />
+
+        {/* Bin body */}
+        <path
+          fill={color}
+          d="M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8H5zm4 3.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5A.75.75 0 0 1 9 11.5zm6 0a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5a.75.75 0 0 1 .75-.75z"
+        />
       </svg>
     );
   }

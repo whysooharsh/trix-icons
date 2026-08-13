@@ -1,12 +1,16 @@
 'use client';
 
 /**
- * Story: arrow travels downward toward user → arrives at resting tray base → settles.
+ * Story: object/arrow travels downward → enters tray → tray responds subtly → settles.
  */
 
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
+import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
+
+const DURATION_FALL = 0.28;
+const DURATION_TRAY = 0.2;
 
 export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
   function DownloadIcon(
@@ -21,24 +25,46 @@ export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     },
     ref
   ) {
-    const ctrl = useAnimation();
+    const arrowCtrl = useAnimation();
+    const trayCtrl = useAnimation();
     const prefersReducedMotion = useReducedMotion();
+    const isAnimatingRef = useRef(false);
 
-    const startAnimation = useCallback(() => {
-      if (prefersReducedMotion || disabled) return;
-      ctrl.start({
-        y: [0, 3, 0],
-        transition: { duration: 0.35, ease: 'easeInOut' },
+    const startAnimation = useCallback(async () => {
+      if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
+      isAnimatingRef.current = true;
+
+      // 1. Arrow travels downward into the tray
+      await arrowCtrl.start({
+        y: [-10, 0],
+        opacity: [0, 1],
+        transition: { duration: DURATION_FALL, ease: EASE_STANDARD },
       });
-    }, [prefersReducedMotion, disabled, ctrl]);
+
+      // 2. Tray responds with a subtle physical flex upon arrival
+      await trayCtrl.start({
+        y: [0, 1.5, 0],
+        transition: { duration: DURATION_TRAY, ease: EASE_BOUNCE },
+      });
+
+      arrowCtrl.set({ y: 0, opacity: 1 });
+      trayCtrl.set({ y: 0 });
+      isAnimatingRef.current = false;
+    }, [arrowCtrl, trayCtrl, prefersReducedMotion, disabled]);
 
     const stopAnimation = useCallback(() => {
-      ctrl.stop();
-    }, [ctrl]);
+      isAnimatingRef.current = false;
+      arrowCtrl.stop();
+      trayCtrl.stop();
+    }, [arrowCtrl, trayCtrl]);
 
     const resetAnimation = useCallback(() => {
-      ctrl.set({ y: 0 });
-    }, [ctrl]);
+      isAnimatingRef.current = false;
+      arrowCtrl.stop();
+      trayCtrl.stop();
+      arrowCtrl.set({ y: 0, opacity: 1 });
+      trayCtrl.set({ y: 0 });
+    }, [arrowCtrl, trayCtrl]);
 
     useImperativeHandle(
       ref,
@@ -47,7 +73,7 @@ export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
     );
 
     const onMouseEnter = trigger === 'hover' && !disabled ? startAnimation : undefined;
-    const onPointerDown = trigger === 'press' && !disabled ? startAnimation : undefined;
+    const onPointerDown = (trigger === 'hover' || trigger === 'press') && !disabled ? startAnimation : undefined;
     const onFocus = trigger === 'focus' && !disabled ? startAnimation : undefined;
 
     const accessibilityProps = ariaLabel
@@ -64,6 +90,7 @@ export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         style={{
           color,
           display: 'block',
+          overflow: 'visible',
           ...(disabled && { pointerEvents: 'none' }),
         }}
         onMouseEnter={onMouseEnter}
@@ -71,6 +98,7 @@ export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         onFocus={onFocus}
         {...accessibilityProps}
       >
+        {/* Downward traveling arrow */}
         <motion.path
           d="M12 3v12m0 0l-4-4m4 4l4-4"
           fill="none"
@@ -78,16 +106,20 @@ export const DownloadIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"
-          animate={ctrl}
-          initial={{ y: 0 }}
+          animate={arrowCtrl}
+          initial={{ y: 0, opacity: 1 }}
         />
-        <path
+
+        {/* Responding tray base */}
+        <motion.path
           d="M4 21h16"
           fill="none"
           stroke={color}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"
+          animate={trayCtrl}
+          initial={{ y: 0 }}
         />
       </svg>
     );
