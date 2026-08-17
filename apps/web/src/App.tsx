@@ -19,12 +19,10 @@ import {
 } from '@trix/icons';
 import { LogoMark } from './components/LogoMark';
 
-// Import generated registry source of truth (3 levels up to root)
 import registryDataRaw from '../../../registry/icons.json';
 
 const registryData = registryDataRaw as unknown as GeneratedRegistry;
 
-// Component map linking registry entry slugs to React component implementations
 const COMPONENT_MAP: Record<
   string,
   React.ForwardRefExoticComponent<
@@ -55,7 +53,6 @@ export function App() {
   const [copiedCli, setCopiedCli] = useState<boolean>(false);
   const [modalCliCopied, setModalCliCopied] = useState<boolean>(false);
 
-  // Standalone feature refs for interactive demonstration
   const mediumFeatureRef = useRef<AnimatedIconHandle>(null);
   const leetcodeFeatureRef = useRef<AnimatedIconHandle>(null);
   const bellFeatureRef = useRef<AnimatedIconHandle>(null);
@@ -70,17 +67,14 @@ export function App() {
   const downloadFeatureRef = useRef<AnimatedIconHandle>(null);
   const checkFeatureRef = useRef<AnimatedIconHandle>(null);
 
-  // Modal inspection ref
   const modalIconRef = useRef<AnimatedIconHandle>(null);
 
-  // Copy helper
   const handleCopy = (text: string, setFn: (v: boolean) => void) => {
     navigator.clipboard.writeText(text);
     setFn(true);
     setTimeout(() => setFn(false), 2000);
   };
 
-  // Filter icons based on category & search
   const filteredIcons = registryData.icons.filter((icon) => {
     const matchesCategory =
       selectedCategory === 'all' || icon.category === selectedCategory;

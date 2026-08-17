@@ -5,7 +5,6 @@ import type { GeneratedRegistry, RegistryEntry } from '@trix/registry';
 
 const VERSION = '0.1.0';
 
-// Convert slug (e.g. 'search', 'home') to PascalCase ComponentName (e.g. 'SearchIcon', 'HomeIcon')
 function toComponentName(slug: string): string {
   const camel = slug.replace(/-([a-z])/g, (_, letter: string) => letter.toUpperCase());
   return `${camel.charAt(0).toUpperCase()}${camel.slice(1)}Icon`;
@@ -13,7 +12,6 @@ function toComponentName(slug: string): string {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Locate registry JSON file (bundled in dist/ first)
 function loadRegistry(): GeneratedRegistry {
   const possiblePaths = [
     path.resolve(__dirname, './icons.json'),
@@ -30,7 +28,6 @@ function loadRegistry(): GeneratedRegistry {
         const raw = fs.readFileSync(p, 'utf-8');
         return JSON.parse(raw) as GeneratedRegistry;
       } catch {
-        // Continue searching fallback paths
       }
     }
   }
@@ -44,13 +41,11 @@ function loadRegistry(): GeneratedRegistry {
   };
 }
 
-// Locate component source code for an icon (bundled components.json first)
 function loadComponentSource(entry: RegistryEntry): string | null {
   const category = entry.category;
   const compName = toComponentName(entry.slug);
   const filename = `${compName}.tsx`;
 
-  // 1. Try bundled components.json in dist/
   const bundledComponentsPaths = [
     path.resolve(__dirname, './components.json'),
     path.resolve(__dirname, '../dist/components.json'),
@@ -64,12 +59,10 @@ function loadComponentSource(entry: RegistryEntry): string | null {
           return map[compName] || map[entry.slug] || null;
         }
       } catch {
-        // Continue
       }
     }
   }
 
-  // 2. Try relative source files (monorepo mode)
   const possiblePaths = [
     path.resolve(__dirname, `../../icons/src/${category}/${filename}`),
     path.resolve(__dirname, `../../../packages/icons/src/${category}/${filename}`),
@@ -245,7 +238,6 @@ function addIcons(registry: GeneratedRegistry, names: string[], customOutput?: s
       continue;
     }
 
-    // Experimental Brand Icon Provenance Guard
     if ((entry.status === 'experimental' && entry.category === 'brands') || entry.provenance?.reviewRequired) {
       if (!force) {
         console.log(`\nWarning: Icon "${entry.slug}" is experimental with unresolved brand provenance.`);
@@ -314,7 +306,6 @@ export function main() {
 
   const force = args.includes('--force');
 
-  // Filter out flags from command arguments
   const cleanArgs = args.filter((arg: string, i: number) => {
     if (arg.startsWith('--')) return false;
     if (i > 0 && args[i - 1] === '--output') return false;

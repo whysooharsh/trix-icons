@@ -4,7 +4,7 @@
  * Story: lid opens on hinge → discarded item drops into bin → lid closes and settles.
  */
 
-import { forwardRef, useCallback, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
 import { motion, useAnimation, useReducedMotion } from 'motion/react';
 import type { AnimatedIconHandle, AnimatedIconProps } from '@trix/core';
 import { EASE_BOUNCE, EASE_STANDARD } from '@trix/core';
@@ -33,20 +33,17 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      // 1. Lid opens on left-hinge
       lidCtrl.start({
         rotate: -30,
         transition: { duration: DURATION_OPEN, ease: EASE_BOUNCE },
       });
 
-      // 2. Discarded item drops into bin and fades out
       await itemCtrl.start({
         y: [0, 8],
         opacity: [1, 0],
         transition: { duration: DURATION_DROP, ease: EASE_STANDARD, delay: 0.05 },
       });
 
-      // 3. Lid snaps closed
       await lidCtrl.start({
         rotate: 0,
         transition: { duration: DURATION_OPEN * 0.8, ease: EASE_STANDARD },
@@ -103,7 +100,6 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         onFocus={onFocus}
         {...accessibilityProps}
       >
-        {/* Item dropping into the bin */}
         <motion.rect
           x="11"
           y="7"
@@ -115,7 +111,6 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           animate={itemCtrl}
         />
 
-        {/* Bin lid — rotates -30 deg around hinge (4px, 6px) */}
         <motion.path
           fill={color}
           d="M4 6V4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5V6H4zm5-1.5h6v1.5H9V4.5z"
@@ -124,7 +119,6 @@ export const DeleteIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           initial={{ rotate: 0 }}
         />
 
-        {/* Bin body */}
         <path
           fill={color}
           d="M5 8v11a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8H5zm4 3.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5A.75.75 0 0 1 9 11.5zm6 0a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0v-5.5a.75.75 0 0 1 .75-.75z"

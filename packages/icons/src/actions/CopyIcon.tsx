@@ -33,7 +33,6 @@ export const CopyIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
       if (prefersReducedMotion || disabled || isAnimatingRef.current) return;
       isAnimatingRef.current = true;
 
-      // Phase 1: Separate front and back sheets outward
       frontCtrl.start({
         x: 2,
         y: 2,
@@ -48,7 +47,6 @@ export const CopyIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         transition: { duration: DURATION_SEPARATE, ease: EASE_STANDARD },
       });
 
-      // Phase 2: Snap / settle into alignment
       frontCtrl.start({
         x: 0,
         y: 0,
@@ -114,7 +112,6 @@ export const CopyIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
         onFocus={onFocus}
         {...accessibilityProps}
       >
-        {/* Back document sheet */}
         <motion.path
           fill={color}
           d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1z"
@@ -123,7 +120,6 @@ export const CopyIcon = forwardRef<AnimatedIconHandle, AnimatedIconProps>(
           style={{ transformBox: 'fill-box', transformOrigin: 'center' }}
         />
 
-        {/* Front document sheet */}
         <motion.path
           fill={color}
           d="M19 5H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"
