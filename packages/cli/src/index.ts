@@ -110,7 +110,6 @@ function detectTargetDir(customOutput?: string): string {
 function showHelp() {
   console.log(`
 Usage: npx trix-icons <command> [options]
-       npx trix <command> [options]
 
 Commands:
   add <name...>    Install one or more animated icons into your project
@@ -120,7 +119,7 @@ Commands:
 
 Options:
   --output <path>  Target directory for installed component files
-  --force          Overwrite existing files without prompting
+  --force          Overwrite existing files or install experimental brand icons
   --help           Show command usage and options
   --version        Show CLI version
 
@@ -128,8 +127,8 @@ Examples:
   npx trix-icons add search
   npx trix-icons add bell mail call --output src/ui/icons/
   npx trix-icons list
-  npx trix-icons search notification
-  npx trix-icons info bell
+  npx trix-icons search communication
+  npx trix-icons info call
 `);
 }
 
@@ -146,7 +145,7 @@ function listIcons(registry: GeneratedRegistry) {
   for (const [category, list] of Object.entries(grouped)) {
     console.log(`\x1b[1m${category.toUpperCase()}\x1b[0m`);
     for (const icon of list) {
-      const statusBadge = icon.status === 'stable' ? '\x1b[32m[stable]\x1b[0m' : '\x1b[33m[exp]\x1b[0m';
+      const statusBadge = icon.status === 'stable' ? '\x1b[32m[stable]\x1b[0m' : '\x1b[33m[experimental]\x1b[0m';
       console.log(`  • ${icon.slug.padEnd(14)} ${statusBadge} ${icon.description}`);
     }
   }
@@ -154,6 +153,11 @@ function listIcons(registry: GeneratedRegistry) {
 }
 
 function searchIcons(registry: GeneratedRegistry, query: string) {
+  if (!query || query.trim().length === 0) {
+    console.log(`\nPlease specify a query to search.\nExample: npx trix-icons search communication\n`);
+    return;
+  }
+
   const q = query.toLowerCase();
   const iconList = registry.icons || [];
   const matches = iconList.filter(
@@ -177,10 +181,16 @@ function searchIcons(registry: GeneratedRegistry, query: string) {
 }
 
 function infoIcon(registry: GeneratedRegistry, name: string) {
+  if (!name) {
+    console.error(`\nError: Please specify an icon name.\nExample: npx trix-icons info call\n`);
+    process.exit(1);
+    return;
+  }
+
   const iconList = registry.icons || [];
   const icon = iconList.find((i) => i.slug === name.toLowerCase());
   if (!icon) {
-    console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix-icons list' to view available icons.\n`);
+    console.error(`\nError: Icon "${name}" was not found in registry.\n\nRun:\n  npx trix-icons list\n  npx trix-icons search <query>\n`);
     process.exit(1);
     return;
   }
@@ -198,10 +208,12 @@ Technique:     ${icon.animation?.technique || 'standard'}
 Story:         ${icon.animation?.description || 'Semantic story animation'}
 Reduced Motion: ${icon.animation?.reducedMotion || 'static'}
 
-\x1b[1mProvenance:\x1b[0m
+\x1b[1mProvenance Details:\x1b[0m
 Source:        ${icon.provenance?.source || 'original'}
 License:       ${icon.provenance?.license || 'MIT'}
 Trademark:     ${icon.provenance?.trademark ? 'Yes' : 'No'}
+${icon.provenance?.trademarkOwner ? `Trademark Owner: ${icon.provenance.trademarkOwner}` : ''}
+${icon.provenance?.attribution ? `Attribution:   ${icon.provenance.attribution}` : ''}
 
 To install:
   npx trix-icons add ${icon.slug}
@@ -229,45 +241,52 @@ function addIcons(registry: GeneratedRegistry, names: string[], customOutput?: s
     const entry = iconList.find((i) => i.slug === slug);
 
     if (!entry) {
-      console.error(`\nError: Icon "${name}" not found in registry.\nRun 'npx trix-icons list' to see available icons.\n`);
+      console.error(`\nError: Icon "${name}" was not found in registry.\n\nRun:\n  npx trix-icons list\n  npx trix-icons search <query>\n`);
       continue;
+    }
+
+    // Experimental Brand Icon Provenance Guard
+    if ((entry.status === 'experimental' && entry.category === 'brands') || entry.provenance?.reviewRequired) {
+      if (!force) {
+        console.log(`\nWarning: Icon "${entry.slug}" is experimental with unresolved brand provenance.`);
+        console.log(`  License status:  ${entry.provenance?.license || 'unknown'}`);
+        console.log(`  Trademark owner: ${entry.provenance?.trademarkOwner || 'Third party'}`);
+        console.log(`  Verify permissions before proceeding.`);
+        console.log(`  Use '--force' to install: npx trix-icons add ${entry.slug} --force\n`);
+        continue;
+      } else {
+        console.log(`\x1b[33mNotice: Installing experimental brand icon "${entry.slug}" with --force flag.\x1b[0m`);
+      }
     }
 
     const compName = toComponentName(entry.slug);
     const sourceCode = loadComponentSource(entry);
     if (!sourceCode) {
-      console.error(`\nError: Could not locate source code for "${entry.slug}".\n`);
+      console.error(`\nError: Could not locate component source code for "${entry.slug}".\n`);
       continue;
     }
 
     const targetFile = path.join(targetDir, `${compName}.tsx`);
 
     if (fs.existsSync(targetFile) && !force) {
-      const existingContent = fs.readFileSync(targetFile, 'utf-8');
-      if (existingContent === sourceCode) {
-        console.log(`• ${compName}.tsx is already up to date in ${path.relative(process.cwd(), targetDir)}`);
-        continue;
-      } else {
-        console.log(`\nWarning: ${compName}.tsx already exists and differs.`);
-        console.log(`  Use '--force' to overwrite: npx trix-icons add ${entry.slug} --force\n`);
-        continue;
-      }
+      console.log(`\nWarning: ${compName}.tsx already exists in ${path.relative(process.cwd(), targetDir)}.`);
+      console.log(`  Use '--force' to overwrite: npx trix-icons add ${entry.slug} --force\n`);
+      continue;
     }
 
     fs.writeFileSync(targetFile, sourceCode, 'utf-8');
     const relativeTarget = path.relative(process.cwd(), targetFile);
-    console.log(`✓ Installed: ${relativeTarget}`);
+    console.log(`✓ Added ${compName}.tsx → ${relativeTarget}`);
     installed.push(compName);
   }
 
   if (installed.length > 0) {
     console.log(`
-  Installed components require peer dependencies:
-  → motion (framer-motion / motion/react)
-  → react (>=18.0.0)
+Installed components require peer dependency:
+  motion (framer-motion / motion/react)
 
-  If not installed in your project, run:
-  → npm install motion
+Install with:
+  npm install motion
 `);
   }
 }

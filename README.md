@@ -6,70 +6,58 @@ An animated React icon system built on a source-distribution model. Every icon e
 
 `trix-icons` provides animated SVG icon components where motion derives from semantic meaning.
 
-You can install individual component source files directly into your project via the CLI (`npx trix add <icon-name>`) or consume the package directly via `@trix/icons`.
+You install individual component source files directly into your project via the CLI (`npx trix-icons add <icon-name>`). You receive full ownership and control of the installed source code.
 
 ## Quick Start
 
-### 1. Source-Distribution via CLI
+### Source-Distribution via CLI
 
 Install component source files directly into your codebase:
 
 ```bash
 # Install an animated icon component into your project
-npx trix add search
+npx trix-icons add search
 
-# Install multiple icons
-npx trix add bell mail call search
+# Install multiple icons at once
+npx trix-icons add bell mail call search
 
 # Target a custom folder
-npx trix add download --output src/ui/icons/
+npx trix-icons add download --output src/ui/icons/
+
+# Force overwrite existing files
+npx trix-icons add search --force
 ```
 
-### 2. Standard NPM Import
-
-Alternatively, import React components directly from `@trix/icons`:
+### Available CLI Commands
 
 ```bash
-npm install @trix/icons motion react
-```
-
-```tsx
-import { SearchIcon, BellIcon, MailIcon } from '@trix/icons';
-
-export function Header() {
-  return (
-    <nav>
-      <SearchIcon size={24} trigger="hover" />
-      <BellIcon size={24} trigger="hover" />
-      <MailIcon size={24} trigger="hover" />
-    </nav>
-  );
-}
+npx trix-icons add <icon...>
+npx trix-icons list
+npx trix-icons search <query>
+npx trix-icons info <icon>
 ```
 
 ## Packages in Monorepo
 
 | Package | Description | Version |
 | --- | --- | --- |
-| `trix-icons` (`apps/cli`) | Source-distribution CLI binary | `0.1.0` |
-| `@trix/icons` (`packages/icons`) | React animated icon components | `0.1.0` |
-| `@trix/core` (`packages/core`) | Shared contracts and motion tokens | `0.1.0` |
-| `@trix/registry` (`packages/registry`) | Registry schema and metadata index | `0.1.0` |
+| `trix-icons` | Source-distribution CLI binary | `0.1.0` |
+| `@trix/icons` | React animated icon components | `0.1.0` |
+| `@trix/core` | Shared animation contracts & tokens | `0.1.0` |
+| `@trix/registry` | Registry schema & metadata index | `0.1.0` |
 
-## Available Icons (14 Total)
+## Requirements
 
-- **Actions**: `copy`, `delete`, `download`, `heart`, `refresh`, `search`, `upload`
-- **Communication**: `bell`, `call`, `mail`
-- **Navigation**: `home`
-- **System**: `check`
-- **Brands**: `medium`, `leetcode`
+Generated icon components require the following peer dependency:
 
-## Governance & Security
+- `motion` (`framer-motion` / `motion/react` >=11.0.0)
+- `react` (>=18.0.0)
 
-- [Code of Conduct](./CODE_OF_CONDUCT.md)
-- [Security Policy](./SECURITY.md)
-- [Changelog](./CHANGELOG.md)
-- [License](./LICENSE)
+Install in your project with:
+
+```bash
+npm install motion
+```
 
 ## License
 

@@ -24,7 +24,54 @@ for (const targetDir of targets) {
   }
 }
 
-// 2. Scan component sources
+const CORE_INLINES = `
+export interface AnimatedIconProps {
+  size?: number | string;
+  color?: string;
+  strokeWidth?: number;
+  className?: string;
+  trigger?: 'hover' | 'press' | 'focus' | 'manual' | 'none';
+  disabled?: boolean;
+  'aria-label'?: string;
+}
+
+export interface AnimatedIconHandle {
+  startAnimation: () => void;
+  stopAnimation: () => void;
+  resetAnimation: () => void;
+}
+
+const EASE_SETTLE = [0.16, 1, 0.3, 1] as const;
+const EASE_DRAW = [0.65, 0, 0.35, 1] as const;
+const EASE_BOUNCE = [0.34, 1.56, 0.64, 1] as const;
+const EASE_STANDARD = [0.4, 0, 0.2, 1] as const;
+`;
+
+function transformForDistribution(code) {
+  let cleaned = code;
+  
+  // Remove any @trix/core imports
+  cleaned = cleaned.replace(/import\s+type\s+\{[^}]*\}\s+from\s+['"]@trix\/core['"];?\r?\n?/g, '');
+  cleaned = cleaned.replace(/import\s+\{[^}]*\}\s+from\s+['"]@trix\/core['"];?\r?\n?/g, '');
+  
+  // Insert inline types/tokens after last import line
+  const lastImportIndex = Math.max(
+    cleaned.lastIndexOf("from 'motion/react';"),
+    cleaned.lastIndexOf("from 'react';")
+  );
+
+  if (lastImportIndex !== -1) {
+    const endOfLineIndex = cleaned.indexOf('\n', lastImportIndex);
+    const insertPos = endOfLineIndex !== -1 ? endOfLineIndex + 1 : lastImportIndex;
+    cleaned = cleaned.slice(0, insertPos) + '\n' + CORE_INLINES.trim() + '\n\n' + cleaned.slice(insertPos);
+  } else {
+    cleaned = CORE_INLINES.trim() + '\n\n' + cleaned;
+  }
+  
+  return cleaned;
+}
+
+// 2. Scan and transform component sources
 const componentMap = {};
 
 function scanDir(dir) {
@@ -36,9 +83,10 @@ function scanDir(dir) {
       scanDir(fullPath);
     } else if (entry.isFile() && entry.name.endsWith('.tsx')) {
       const compName = entry.name.replace(/\.tsx$/, '');
-      const content = fs.readFileSync(fullPath, 'utf-8');
-      componentMap[compName] = content;
-      componentMap[compName.toLowerCase()] = content;
+      const rawContent = fs.readFileSync(fullPath, 'utf-8');
+      const transformed = transformForDistribution(rawContent);
+      componentMap[compName] = transformed;
+      componentMap[compName.toLowerCase()] = transformed;
     }
   }
 }
@@ -51,4 +99,4 @@ for (const targetDir of targets) {
   fs.writeFileSync(path.join(targetDir, 'components.json'), jsonContent, 'utf-8');
 }
 
-console.log(`✓ CLI runtime assets bundled to dist/ (${Object.keys(componentMap).length / 2} components)`);
+console.log(`✓ CLI runtime assets bundled to dist/ (${Object.keys(componentMap).length / 2} components ready for clean distribution)`);

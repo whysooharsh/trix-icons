@@ -10,28 +10,28 @@ No permanent installation is required. Run directly using `npx`:
 
 ```bash
 # Add an animated icon to your project
-npx trix add search
+npx trix-icons add search
 
 # Add multiple icons at once
-npx trix add bell mail call search
+npx trix-icons add bell mail call search
 
 # Target a specific output directory
-npx trix add download --output src/components/icons/
+npx trix-icons add download --output src/components/icons/
 
 # Overwrite existing files
-npx trix add search --force
+npx trix-icons add search --force
 ```
 
 ## Available Commands
 
 | Command | Description |
 | --- | --- |
-| `npx trix add <name...>` | Install one or more icons into your project |
-| `npx trix list` | List all available icons in the registry |
-| `npx trix search <query>` | Search icons by name, category, or keyword |
-| `npx trix info <name>` | Display metadata, provenance, and motion story details |
-| `npx trix --help` | Show command usage and CLI options |
-| `npx trix --version` | Show CLI version |
+| `npx trix-icons add <name...>` | Install one or more icons into your project |
+| `npx trix-icons list` | List all available icons in the registry |
+| `npx trix-icons search <query>` | Search icons by name, category, or keyword |
+| `npx trix-icons info <name>` | Display metadata, provenance, and motion story details |
+| `npx trix-icons --help` | Show command usage and CLI options |
+| `npx trix-icons --version` | Show CLI version |
 
 ## Target Directory Auto-Detection
 
