@@ -6,7 +6,7 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
-    "trix-icons": "./bin/trix.js"
+    "trix-icons": "./bin/trix-icons.js"
   },
   "files": [
     "bin",
