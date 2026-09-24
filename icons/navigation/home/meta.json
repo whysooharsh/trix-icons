@@ -1,0 +1,25 @@
+{
+  "name": "home",
+  "slug": "home",
+  "category": "navigation",
+  "description": "Represents home, dashboard, or primary landing navigation. On hover the roofline unwrites and retraces itself while the house stands still.",
+  "keywords": ["home", "house", "dashboard", "main", "start", "landing", "navigation"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "path-drawing",
+    "description": "The roofline unwrites and retraces itself (pathLength 1-0-1, 0.35s draw ease) while walls, floor, and door stay fixed — the shelter reaffirmed by a single stroke. Ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Home",
+    "notes": "Main navigation entry point. Ensure aria-label or visible label text indicates current page state when active."
+  },
+  "status": "experimental"
+}

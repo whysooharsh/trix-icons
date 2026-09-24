@@ -1,0 +1,30 @@
+{
+  "name": "leetcode",
+  "slug": "leetcode",
+  "category": "brands",
+  "description": "The LeetCode platform logo mark. A stylized angular bracket intersected by a horizontal bar — the distinctive geometric mark of the LeetCode coding practice platform.",
+  "keywords": ["leetcode", "coding", "algorithm", "programming", "interview", "dsa"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": true,
+    "trademarkOwner": "LeetCode LLC",
+    "trademarkContext": "Used for identification purposes only. This project has no affiliation with, endorsement by, or sponsorship from LeetCode LLC.",
+    "attribution": "LeetCode mark is a trademark of LeetCode LLC.",
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "The animation treatment (path draw sequence, timing, easing) is original implementation work. The underlying LeetCode mark is a trademark of LeetCode LLC and its license status is pending human review. The animationLicense field (MIT) covers only the animation code — it does not grant permission to use the LeetCode trademark or reproduce the mark outside the terms set by LeetCode LLC. The icon.svg uses a 128×128 coordinate space rather than the trix-icons standard 24×24 viewBox; this is documented intentional deviation to preserve the exact geometry of the mark (see REGISTRY.md). Do not change reviewRequired to false without human legal review.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "stroke-draw-to-fill",
+    "description": "The entire mark traces itself in a single continuous gesture (1.1s) using a weighted ease-in-out cubic-bezier. The fill crossfade begins 950ms in — 150ms before the draw completes — creating a slight overlap that dissolves the stroke smoothly into the final filled state.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "LeetCode",
+    "notes": "When used as a link to a LeetCode profile or problem set, the parent element should provide context (e.g., aria-label='View on LeetCode')."
+  },
+  "status": "experimental"
+}

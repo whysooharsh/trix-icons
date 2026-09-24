@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "paths": {
+      "@trix/registry": ["../../packages/registry/src/index.ts"]
+    }
+  },
+  "include": ["src", "../../packages/registry/src"]
+}

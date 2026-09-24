@@ -1,0 +1,25 @@
+{
+  "name": "upload",
+  "slug": "upload",
+  "category": "actions",
+  "description": "Represents a file upload or send-to-cloud action. On hover, the arrow fires upward into a portal clip via a conveyor belt mechanism: the primary arrow exits the top while a clone rises seamlessly from below to take its place. The tray base stays static. Reverses on hover-leave.",
+  "keywords": ["upload", "send", "cloud", "transfer", "arrow", "export", "submit"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "conveyor-belt",
+    "description": "Hold-to-loop sending: while hovered, the conveyor repeats (0.45s per cycle) so arrows ride upward one after another. Looping is justified because an upload affordance is a transfer/progress indicator. Press, focus, or manual trigger plays a single cycle. Leave stops the loop and resets to rest. Two identical arrow paths stacked 16 SVG units apart share a motion.g. Unique per-instance clipPath IDs via useId() prevent DOM conflicts. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Upload",
+    "notes": "When used as a file upload trigger, pair with a visible label or progress indicator after activation."
+  },
+  "status": "experimental"
+}

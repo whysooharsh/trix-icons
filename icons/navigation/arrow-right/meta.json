@@ -1,0 +1,25 @@
+{
+  "name": "arrow-right",
+  "slug": "arrow-right",
+  "category": "navigation",
+  "description": "Represents moving forward or pointing right. On hover the arrow nudges rightward, pointing the way.",
+  "keywords": ["arrow-right", "forward", "next", "right", "continue"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "Shaft and head translate +3.5px on x and return (0.3s easeOut) — a pointing nudge in the direction of travel. One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Forward",
+    "notes": "Provide context when used as a next-step or continue control."
+  },
+  "status": "experimental"
+}

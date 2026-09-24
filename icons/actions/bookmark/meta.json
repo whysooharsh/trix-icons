@@ -1,0 +1,28 @@
+{
+  "name": "bookmark",
+  "slug": "bookmark",
+  "category": "actions",
+  "description": "Represents saving or bookmarking for later. On hover the bookmark jumps, stretches, and squashes onto the ground with a bubble of effort and twin impact dust.",
+  "keywords": ["bookmark", "save", "favorite", "later", "reading-list"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": false,
+    "attribution": null,
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "Base bookmark path picked from a third-party icon site by the maintainer and animated via Gemini; exact source site unconfirmed (16x16 grid suggests Bootstrap Icons, MIT — UNVERIFIED, confirm before use). License status: pending human review — confirm the source site before promoting to stable. Documented intentional 16x16 viewBox deviation to preserve the contributed geometry exactly.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "scale",
+    "description": "The bookmark jumps (y -4), stretches (scaleY 1.15), and squashes onto the ground (scaleY 0.75, scaleX 1.25) pivoting at its base (8, 15.5), then settles (0.6s easeInOut). A bubble floats up as it jumps; twin dust puffs fire at the 0.3s impact moment. One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Bookmark",
+    "notes": "Provide context for what is being saved when used in a button."
+  },
+  "status": "experimental"
+}

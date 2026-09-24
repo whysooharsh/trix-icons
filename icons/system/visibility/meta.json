@@ -1,0 +1,25 @@
+{
+  "name": "visibility",
+  "slug": "visibility",
+  "category": "system",
+  "description": "Represents show/hide state, e.g. password visibility toggles. The eye outline stays intact in both states; on hover the eye blinks shut — the pupil shrinks away as a lash line draws across it.",
+  "keywords": ["eye", "eye-off", "visibility", "show", "hide", "password", "reveal", "secret"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "stroke-path-drawing",
+    "description": "The pupil shrinks to 20 percent and fades (0.18s) while a lash line draws left to right across the eye (0.2s draw ease, 0.08s delay) — a blink shut. The outline never moves, so both states read as the same control. Reopens in reverse unless committed; clicking toggles and holds the hidden state until clicked again. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Toggle visibility",
+    "notes": "Pair with the controlled input so screen readers announce actual reveal state."
+  },
+  "status": "experimental"
+}

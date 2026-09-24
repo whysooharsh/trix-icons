@@ -11,15 +11,15 @@ The installed code is owned by the developer. They can inspect it, modify it, an
 ## Core Command
 
 ```bash
-npx trix add <icon-name>
-npx trix add <icon-name> [icon-name...]
+npx trix-icons add <icon-name>
+npx trix-icons add <icon-name> [icon-name...]
 ```
 
 Example:
 
 ```bash
-npx trix add download
-npx trix add github search mail
+npx trix-icons add download
+npx trix-icons add github search mail
 ```
 
 ---
@@ -28,12 +28,12 @@ npx trix add github search mail
 
 | Command | Description | Phase |
 |---------|-------------|-------|
-| `npx trix add <name>` | Install one or more icons | Phase 3 |
-| `npx trix list` | List all available icons | Phase 3 |
-| `npx trix search <query>` | Search icons by name, keyword, description | Phase 3 |
-| `npx trix info <name>` | Show provenance, license, and animation info for an icon | Phase 3 |
-| `npx trix update <name>` | Update an installed icon to the latest version | Phase 4 |
-| `npx trix update --all` | Update all installed icons | Phase 4 |
+| `npx trix-icons add <name>` | Install one or more icons | Phase 3 |
+| `npx trix-icons list` | List all available icons | Phase 3 |
+| `npx trix-icons search <query>` | Search icons by name, keyword, description | Phase 3 |
+| `npx trix-icons info <name>` | Show provenance, license, and animation info for an icon | Phase 3 |
+| `npx trix-icons update <name>` | Update an installed icon to the latest version | Phase 4 |
+| `npx trix-icons update --all` | Update all installed icons | Phase 4 |
 
 Do not implement commands that are not needed yet. Document them here and wait.
 
@@ -41,7 +41,7 @@ Do not implement commands that are not needed yet. Document them here and wait.
 
 ## Installation Model
 
-When a user runs `npx trix add download`:
+When a user runs `npx trix-icons add download`:
 
 1. The CLI reads the registry (local bundle or fetched)
 2. It finds the entry for `download`
@@ -83,7 +83,7 @@ The CLI must not silently guess wrong. If detection is ambiguous, it prompts.
 The output path can always be overridden:
 
 ```bash
-npx trix add download --output src/ui/icons/
+npx trix-icons add download --output src/ui/icons/
 ```
 
 ---
@@ -93,8 +93,8 @@ npx trix add download --output src/ui/icons/
 Running the same command twice must produce a predictable result.
 
 ```bash
-npx trix add download
-npx trix add download   # second run
+npx trix-icons add download
+npx trix-icons add download   # second run
 ```
 
 On the second run, the CLI checks whether the file already exists and whether it has been modified.
@@ -125,7 +125,7 @@ Default is No.
 If `--force` is passed, overwrite without asking.
 
 ```bash
-npx trix add download --force
+npx trix-icons add download --force
 ```
 
 ---
@@ -136,12 +136,12 @@ The CLI must fail loudly when something is wrong.
 
 | Scenario | Behavior |
 |----------|----------|
-| Unknown icon name | `Error: Icon "xyz" not found in registry.\n  Run 'npx trix list' to see available icons.` |
+| Unknown icon name | `Error: Icon "xyz" not found in registry.\n  Run 'npx trix-icons list' to see available icons.` |
 | Icon is not stable | `Error: Icon "xyz" is experimental and not yet available for installation.` |
 | Registry is unavailable | `Error: Could not load registry. Check your connection or try again.` |
 | Target directory cannot be created | `Error: Could not create directory "path/to/dir": [OS error message]` |
 | Icon has unresolved provenance | `Warning: This icon has unresolved licensing. [details]. Continue? [y/N]` |
-| Invalid CLI flag | `Error: Unknown option "--xyz". Run 'npx trix --help' for usage.` |
+| Invalid CLI flag | `Error: Unknown option "--xyz". Run 'npx trix-icons --help' for usage.` |
 
 Do not silently use defaults for unknown flags. Fail clearly.
 
@@ -196,7 +196,7 @@ When a user installs an icon, the CLI writes a `.trixrc.json` (or similar) in th
 }
 ```
 
-This allows `npx trix update` to detect stale versions.
+This allows `npx trix-icons update` to detect stale versions.
 
 The exact format of `.trixrc.json` will be defined in Phase 3.
 
@@ -226,7 +226,7 @@ Error: Could not reach the trix registry at <url>.
 The CLI must provide useful help output.
 
 ```
-Usage: npx trix <command> [options]
+Usage: npx trix-icons <command> [options]
 
 Commands:
   add <name...>    Install one or more icons into your project
@@ -241,10 +241,10 @@ Options:
   --version        Show CLI version
 
 Examples:
-  npx trix add download
-  npx trix add github search mail --output src/components/icons/
-  npx trix list
-  npx trix search arrow
+  npx trix-icons add download
+  npx trix-icons add github search mail --output src/components/icons/
+  npx trix-icons list
+  npx trix-icons search arrow
 ```
 
 ---

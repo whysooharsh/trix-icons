@@ -1,0 +1,25 @@
+{
+  "name": "check",
+  "slug": "check",
+  "category": "system",
+  "description": "Represents completion or confirmation state. The check stroke draws from start to finish on hover.",
+  "keywords": ["check", "confirm", "success", "done", "mark", "tick"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "stroke-path-drawing",
+    "description": "The checkmark stroke draws from 0 to 1 path length on hover.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Completed",
+    "notes": "Used to communicate success or check state."
+  },
+  "status": "stable"
+}

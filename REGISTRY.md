@@ -6,7 +6,7 @@ The registry is a machine-readable manifest of every public icon in trix-icons.
 
 It is used by:
 
-- The CLI (`npx trix add <icon>`) to resolve which files to copy
+- The CLI (`npx trix-icons add <icon>`) to resolve which files to copy
 - The website to render the icon browser and search
 - Validation scripts to check for completeness
 
@@ -164,7 +164,7 @@ The CLI reads `registry/icons.json` to resolve installation requests.
 When the user runs:
 
 ```bash
-npx trix add github
+npx trix-icons add github
 ```
 
 The CLI:

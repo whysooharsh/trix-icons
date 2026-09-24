@@ -1,0 +1,25 @@
+{
+  "name": "heart",
+  "slug": "heart",
+  "category": "actions",
+  "description": "Represents a like, favorite, or appreciation action. On hover or trigger, the heart stroke path draws into shape (0.3s), executes a rhythmic double heartbeat pulse (1 → 1.15 → 1 → 1.08 → 1), and fills smoothly before settling into rest state.",
+  "keywords": ["heart", "like", "favorite", "love", "appreciation", "bookmark", "react"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "stroke-draw",
+    "description": "Sequential story animation: pathLength 0→1 stroke draw (0.3s) followed by a double heartbeat pulse (scale [1, 1.15, 1, 1.08, 1], 0.35s) and fill transition. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Favorite",
+    "notes": "When used in a toggle or like button, pair with aria-pressed state to communicate active state."
+  },
+  "status": "experimental"
+}

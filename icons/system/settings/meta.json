@@ -1,0 +1,29 @@
+{
+  "name": "settings",
+  "slug": "settings",
+  "category": "system",
+  "description": "Represents application or system configuration. On hover the gear performs a single mechanical detent turn: it engages a partial rotation, holds, and releases back to rest.",
+  "keywords": ["settings", "gear", "cog", "preferences", "configuration", "options", "mechanism"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "modified-third-party",
+    "originalSource": "https://github.com/ant-design/ant-design-icons (\"Setting\" icon)",
+    "originalLicense": "MIT",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": "Based on the Ant Design \"setting\" icon (MIT License). Geometry unchanged; presentation adapted for trix-icons (currentColor, root width/height removed, empty bounding-box rect removed).",
+    "notes": "The icon uses a 1024x1024 coordinate space rather than the trix-icons standard 24x24 viewBox; this is a documented intentional deviation to preserve the exact geometry of the source mark. The animation treatment is original implementation work by trix-icons. Base artwork provided directly by the project maintainer.",
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT"
+  },
+  "animation": {
+    "technique": "rotation",
+    "description": "The whole mark rotates 30deg clockwise about its center with ease-in-out (engagement), pauses briefly, then returns to rest (release) - a single detent click of a mechanism being adjusted. Out-and-back is used instead of a snap-back so the animation never assumes geometric symmetry of the source mark. Deliberately partial: refresh owns the full 360deg cycle.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Settings",
+    "notes": "Provide context when used inside a button or link."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!--
+    Medium logo mark — three geometric shapes forming the "M" publication mark.
+
+    Source: third-party trademark of A Medium Corporation.
+    Animation treatment: original implementation by trix-icons project.
+    License status: pending human review. See meta.json provenance.
+
+    Paths are fill-based (currentColor). No hardcoded colors.
+    Stroke is only present during the animated draw-in sequence.
+    No width/height attributes — size is set via the component's size prop.
+  -->
+
+  <!-- Shape 1: circle (leftmost) -->
+  <path
+    d="M7.57 17.576a5.57 5.57 0 1 0 0-11.141a5.57 5.57 0 0 0 0 11.141"
+    fill="currentColor"
+  />
+
+  <!-- Shape 2: vertical ellipse (center) -->
+  <path
+    d="M16.514 17.143c1.512 0 2.738-2.3 2.738-5.138s-1.226-5.137-2.738-5.137s-2.738 2.3-2.738 5.137c0 2.838 1.226 5.138 2.738 5.138"
+    fill="currentColor"
+  />
+
+  <!-- Shape 3: narrow pill (rightmost) -->
+  <path
+    d="M20.922 16.604c.59 0 1.067-2.06 1.067-4.599s-.478-4.598-1.067-4.598c-.59 0-1.068 2.059-1.068 4.598c0 2.54.478 4.599 1.068 4.599"
+    fill="currentColor"
+  />
+</svg>

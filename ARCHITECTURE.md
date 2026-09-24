@@ -7,8 +7,8 @@ trix-icons is an animated icon and component library distributed via source code
 The central developer experience is:
 
 ```bash
-npx trix add github
-npx trix add download upload mail
+npx trix-icons add github
+npx trix-icons add download upload mail
 ```
 
 This copies the icon component source directly into the developer's project. They own the code and can modify it freely.
@@ -114,7 +114,6 @@ trix-icons/
 ├── PROVENANCE.md
 ├── QUALITY_GATES.md
 ├── REGISTRY.md
-├── ROADMAP.md
 └── README.md
 ```
 
@@ -171,7 +170,7 @@ The CLI uses this to resolve which files to copy into the user's project.
 
 ### apps/cli
 
-The user-facing installation tool. At Phase 3, this becomes `npx trix`.
+The user-facing installation tool. At Phase 3, this becomes `npx trix-icons`.
 
 It reads `registry/icons.json`, resolves the requested icon's files, and copies them into the target project.
 
@@ -218,7 +217,7 @@ The source-distribution model means framework support is a deliberate authoring 
 - The motion/react library targets React
 - React remains the dominant framework for component library consumption
 
-Vue, Svelte, and other adapters are in ROADMAP.md as Phase 6 considerations, not current obligations.
+Vue, Svelte, and other adapters are future considerations, not current obligations.
 
 ---
 
@@ -248,6 +247,6 @@ The following were considered and excluded at this phase:
 
 ## Open Architecture Questions (Requires Human Decision)
 
-1. **Package name**: Should the CLI be published as `trix`, `@trix/cli`, or another scoped name? This affects the `npx trix add` command.
+1. **Package name**: Should the CLI be published as `trix`, `@trix/cli`, or another scoped name? This affects the `npx trix-icons add` command.
 2. **npm package distribution**: Should `packages/icons` eventually be published so developers can `npm install @trix/icons` in addition to using the CLI? This is a distribution model question with tradeoffs.
 3. **Registry hosting**: Should `registry/icons.json` be served from a hosted URL or bundled with the CLI? A hosted registry allows the CLI to fetch updates without reinstalling; a bundled registry works offline.

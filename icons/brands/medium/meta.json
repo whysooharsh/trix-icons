@@ -1,0 +1,30 @@
+{
+  "name": "medium",
+  "slug": "medium",
+  "category": "brands",
+  "description": "The Medium publication platform logo mark. Three geometric shapes — a circle, a vertical ellipse, and a narrow pill — arranged left to right to form the recognizable 'M' mark.",
+  "keywords": ["medium", "blog", "publication", "writing", "article"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": true,
+    "trademarkOwner": "A Medium Corporation",
+    "trademarkContext": "Used for identification purposes only. This project has no affiliation with, endorsement by, or sponsorship from A Medium Corporation.",
+    "attribution": "Medium mark is a trademark of A Medium Corporation.",
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "The animation treatment (draw sequence, timing, easing) is original implementation work. The underlying Medium mark is a trademark of A Medium Corporation and its license status is pending human review. The animationLicense field (MIT) covers only the animation code — it does not grant permission to use the Medium trademark or reproduce the mark outside the terms set by A Medium Corporation. Do not change reviewRequired to false without human legal review.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "staggered-stroke-draw-to-fill",
+    "description": "The three shapes draw in sequentially left to right, each tracing itself via stroke before crossfading to a filled state. The stagger (0ms / 150ms / 280ms) follows natural reading direction. Each shape's fill crossfade begins 650ms into its own draw, creating a slight overlap before the stroke completes.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Medium",
+    "notes": "When used as a link to a Medium profile or publication, the parent element should provide context (e.g., aria-label='Read on Medium')."
+  },
+  "status": "experimental"
+}

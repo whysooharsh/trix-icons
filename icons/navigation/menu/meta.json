@@ -1,0 +1,25 @@
+{
+  "name": "menu",
+  "slug": "menu",
+  "category": "navigation",
+  "description": "Represents a collapsible navigation menu. On hover the three lines fold onto the middle seam and the close (X) mark is drawn over the fold; reverses on leave.",
+  "keywords": ["menu", "hamburger", "close", "navigation", "drawer", "toggle", "bars"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "dismiss-and-draw",
+    "description": "The three lines dismiss one-by-one, top first (slight downward settle + fade), then the close X writes itself stroke by stroke via pathLength (backslash, then slash). On leave the X unwrites itself and the items return bottom-first, unless committed by click. Avoids the common rotate-bars-into-diagonals morph.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Menu",
+    "notes": "When used as a toggle, consumers should update the label between Open menu and Close menu to reflect state."
+  },
+  "status": "experimental"
+}

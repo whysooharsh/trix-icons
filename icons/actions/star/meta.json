@@ -1,0 +1,28 @@
+{
+  "name": "star",
+  "slug": "star",
+  "category": "actions",
+  "description": "Represents favoriting, rating, or celebrating. On hover the star squashes in anticipation, bursts with a twist, and settles while three sparkles break off in different directions.",
+  "keywords": ["star", "favorite", "rating", "bookmark", "celebrate", "sparkle", "like"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": false,
+    "attribution": null,
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "Base star path picked from a third-party icon site by the maintainer and animated via Gemini; exact source site unconfirmed (1024x1024 grid suggests Ant Design Icons, MIT — UNVERIFIED, confirm before use). License status: pending human review — confirm the source site before promoting to stable. Documented intentional 1024x1024 viewBox deviation to preserve the contributed geometry exactly.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "scale",
+    "description": "The star squashes (scale 0.75, rotate -15deg), bursts (scale 1.15, rotate 18deg), and settles (0.65s easeInOut) about its center. Three 4-point sparkles break from the center in staggered directions (top-right, top-left, bottom-right; 0.55-0.65s easeOut), scaling and spinning as they fade. One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Favorite",
+    "notes": "Provide context for what is being favorited when used in a button."
+  },
+  "status": "experimental"
+}

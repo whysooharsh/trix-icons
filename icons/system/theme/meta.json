@@ -1,0 +1,29 @@
+{
+  "name": "theme",
+  "slug": "theme",
+  "category": "system",
+  "description": "Represents a light/dark appearance toggle. On hover the sun sets (spins, shrinks, fades) while the moon rises in its place; reverts on leave.",
+  "keywords": ["theme", "sun", "moon", "dark-mode", "light-mode", "brightness", "appearance", "night"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "modified-third-party",
+    "originalSource": "https://github.com/lucide-icons/lucide (\"moon\" icon, crescent geometry)",
+    "originalLicense": "MIT",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": "The crescent moon is adapted from Lucide's MIT-licensed moon icon: radii retuned (r6->5.75 outer detail, r9->8.5 disc) and commands converted to absolute form for the trix-icons grid padding. The sun (circle and eight rays) is original artwork.",
+    "notes": "Only the crescent derives from Lucide. Animation treatment is original work by trix-icons. Sun renders by default; the moon layer is present but transparent in the canonical SVG, mirroring the component's initial state.",
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT"
+  },
+  "animation": {
+    "technique": "ray-absorption",
+    "description": "Dusk falls: the sun's rays absorb inward in two staggered waves (diagonals, then cardinals), the dimming core shrinks away, and the crescent rises out of the fading light (0.5s total). Night emerges from day rather than replacing it; no spin or crossfade swap. Reverses in reverse order. Clicking commits the night state until clicked again; hover is a transient preview.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Toggle theme",
+    "notes": "Consumers should keep the accessible label stable regardless of visual state."
+  },
+  "status": "experimental"
+}

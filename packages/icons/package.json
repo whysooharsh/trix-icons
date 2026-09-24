@@ -1,8 +1,7 @@
 {
   "name": "@trix/icons",
   "version": "0.1.0",
-  "private": true,
-  "description": "React animated icon components for trix-icons",
+  "description": "React animated icon components for trix-icons featuring intentional semantic motion stories",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -12,21 +11,27 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts",
+    "build": "tsup src/index.ts --format esm --dts --clean",
     "typecheck": "tsc --noEmit",
     "dev": "tsup src/index.ts --format esm --dts --watch"
   },
   "dependencies": {
-    "@trix/core": "workspace:*",
-    "motion": "^11.0.0"
+    "@trix/core": "0.1.0"
   },
   "devDependencies": {
+    "@types/react": "^18.0.0",
+    "motion": "^11.0.0",
     "tsup": "^8.0.0",
-    "typescript": "^5.4.0",
-    "@types/react": "^18.0.0"
+    "typescript": "^5.4.0"
   },
   "peerDependencies": {
+    "motion": "^11.0.0",
     "react": ">=18.0.0"
   }
 }

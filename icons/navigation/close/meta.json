@@ -1,0 +1,25 @@
+{
+  "name": "close",
+  "slug": "close",
+  "category": "navigation",
+  "description": "Represents dismissing, closing, or clearing. On hover the two strokes re-cross themselves in sequence.",
+  "keywords": ["close", "dismiss", "clear", "x", "exit", "cancel"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "path-drawing",
+    "description": "The backslash unwrites first, then the slash, then both rewrite in reverse order (0.12s each) — the crossing-out gesture re-enacted. Ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Close",
+    "notes": "When used as a dialog or menu dismiss button, the parent button must provide the accessible name."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "minus",
+  "slug": "minus",
+  "category": "actions",
+  "description": "Represents removing or subtracting. On hover the bar sweeps in from the left — the removal stroke asserted.",
+  "keywords": ["minus", "remove", "subtract", "less", "delete"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "The bar arrives from the left (x -5 to 0, opacity 0 to 1, 0.2s easeOut). One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Remove",
+    "notes": "Provide context for what is being removed when used in a button."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "download",
+  "slug": "download",
+  "category": "actions",
+  "description": "Represents a file or data download action. The arrow translates downward toward the baseline surface on hover.",
+  "keywords": ["download", "save", "export", "arrow-down", "file", "receive"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "Hold-to-loop receiving: while hovered, arrows fall into the tray one after another (fall 0.28s, tray flex 0.2s, settle-through 0.16s per cycle). Looping is justified because a download affordance is a transfer/progress indicator. Press, focus, or manual trigger plays a single cycle. Leave stops the loop and resets to rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Download",
+    "notes": "Provide context when used inside a button or link."
+  },
+  "status": "stable"
+}

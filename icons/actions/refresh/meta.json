@@ -1,0 +1,25 @@
+{
+  "name": "refresh",
+  "slug": "refresh",
+  "category": "actions",
+  "description": "Represents reload, sync, or refresh action. On hover the two circular arcs redraw themselves in sequence, re-tracing the reload loop.",
+  "keywords": ["refresh", "reload", "sync", "rotate", "cycle", "arrow"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "stroke-path-drawing",
+    "description": "The top arc and its arrowhead redraw via pathLength, followed 100ms later by the bottom arc and arrowhead - the cycle visibly restarts. No rotation transforms are used.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Refresh",
+    "notes": "Used for page or data refresh actions."
+  },
+  "status": "stable"
+}

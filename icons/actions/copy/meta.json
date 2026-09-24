@@ -1,0 +1,25 @@
+{
+  "name": "copy",
+  "slug": "copy",
+  "category": "actions",
+  "description": "Represents a copy-to-clipboard or duplicate action. On hover, the two document sheets parallax apart — the front sheet lifts toward the viewer while the back sheet recedes — communicating layered duplication. On press, both sheets compress together.",
+  "keywords": ["copy", "clipboard", "duplicate", "pages", "documents", "paste"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "layered-duplication",
+    "description": "Two paths (front-sheet, back-sheet) separate on hover via opposing transforms: front translates (+1px,+1px) scale(1.05), back translates (-1px,-1px) scale(0.95) opacity(0.3) — 0.3s cubic-bezier(0.33,1,0.68,1). Press collapses both to scale(0.95) — 100ms easeOut. Reverses on hover-leave. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Copy",
+    "notes": "When used as a clipboard copy button, pair with a visible or sr-only confirmation (e.g. 'Copied!') after the action completes."
+  },
+  "status": "experimental"
+}

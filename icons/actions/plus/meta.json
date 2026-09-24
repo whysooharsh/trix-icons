@@ -1,0 +1,25 @@
+{
+  "name": "plus",
+  "slug": "plus",
+  "category": "actions",
+  "description": "Represents adding or creating. On hover the vertical bar inscribes itself top to bottom over the stationary horizontal bar.",
+  "keywords": ["plus", "add", "create", "new", "more"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "The vertical bar draws itself top to bottom (pathLength 0 to 1, 0.25s draw ease) while the horizontal bar stays fixed — the addition inscribed. One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Add",
+    "notes": "Provide context for what is being added when used in a button."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "chevron-down",
+  "slug": "chevron-down",
+  "category": "navigation",
+  "description": "Represents expandable content or more below. On hover the chevron dips downward, gesturing at what lies beneath.",
+  "keywords": ["chevron-down", "expand", "dropdown", "more", "collapse", "disclosure"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "Chevron translates +2.5px on y and returns (0.3s easeOut) — a downward dip toward the hidden content. One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Expand",
+    "notes": "Pair with aria-expanded on the controlling button when used as a disclosure control."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "play-pause",
+  "slug": "play-pause",
+  "category": "media",
+  "description": "Represents the play/pause media state toggle. The play triangle morphs into two pause bars: its vertical edge becomes the first bar while the chevron's apex folds inward to become the second.",
+  "keywords": ["play", "pause", "media", "audio", "video", "toggle", "player"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "path-morph",
+    "description": "Both paths share an identical M-L-L command structure, so the browser interpolates coordinates: the triangle edge translates into pause bar one and the chevron apex folds inward until collinear, becoming bar two (0.28s easeInOut). Morph chosen over structural transform because point counts match exactly; tested readable mid-morph at 16px. Clicking commits the pause state until clicked again; hover is a transient preview.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Play or pause",
+    "notes": "Consumers should update the label to reflect actual playback state."
+  },
+  "status": "experimental"
+}

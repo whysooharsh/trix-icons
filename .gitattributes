@@ -1,0 +1,7 @@
+# GitHub Linguist configuration
+# Mark generated files so GitHub ignores them in language statistics
+
+registry/icons.json linguist-generated=true
+dist/** linguist-generated=true
+packages/*/dist/** linguist-generated=true
+apps/*/dist/** linguist-generated=true

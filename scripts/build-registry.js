@@ -20,7 +20,7 @@ const ICONS_DIR = join(ROOT, "icons");
 const REGISTRY_DIR = join(ROOT, "registry");
 const OUTPUT_PATH = join(REGISTRY_DIR, "icons.json");
 
-const VALID_CATEGORIES = ["ui", "actions", "navigation", "communication", "media", "system", "brands", "experimental"];
+const VALID_CATEGORIES = ["actions", "navigation", "communication", "media", "system", "brands", "experimental"];
 
 /**
  * Reads and parses a JSON file.

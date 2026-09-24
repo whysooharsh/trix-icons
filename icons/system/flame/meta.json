@@ -1,0 +1,28 @@
+{
+  "name": "flame",
+  "slug": "flame",
+  "category": "system",
+  "description": "Represents heat, activity streaks, or trending energy. On hover the flame flares with thermal expansion while two embers break off and rise.",
+  "keywords": ["flame", "fire", "hot", "streak", "trending", "energy", "burn"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": false,
+    "attribution": null,
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "Base flame path picked from a third-party icon site by the maintainer and animated via Gemini; exact source site unconfirmed (56x56 grid). License status: pending human review — confirm the source site before promoting to stable. The icon uses a 56x56 coordinate space rather than the trix-icons standard 24x24 viewBox; documented intentional deviation to preserve the contributed geometry exactly.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "scale",
+    "description": "The flame body flares (scaleY up to 1.12, scaleX down to 0.92, skewX wind-flicker ±3deg, 0.65s easeInOut) pivoting at its base (28, 53.6) so it stays grounded to its fuel source. Two ember sparks break off mid-flare and rise (-18/-22px) fading in then out. One-shot, ends at rest. Scale is justified here: thermal expansion is the meaning. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Flame",
+    "notes": "Provide context (e.g. streak count) when used as a status indicator."
+  },
+  "status": "experimental"
+}

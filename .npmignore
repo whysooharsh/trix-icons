@@ -1,0 +1,3 @@
+# Only files listed in package.json "files" field will be included.
+# Everything else is ignored for npm publishing.
+*

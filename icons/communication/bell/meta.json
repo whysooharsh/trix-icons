@@ -1,0 +1,25 @@
+{
+  "name": "bell",
+  "slug": "bell",
+  "category": "communication",
+  "description": "Represents a notification or alert action. On hover or trigger, the bell body swings with a natural decaying oscillation (±8° to 0°, hinged at top ring 12px 4px) while the clapper counter-swings in sync (±14° to 0°, hinged at attachment point 12px 21px).",
+  "keywords": ["bell", "notification", "alert", "ring", "chime", "reminder", "alarm"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "physical-swing",
+    "description": "The bell body and clapper oscillate in opposite directions with decaying keyframe arrays (0.7s duration, easeInOut). Bell body is hinged at (12px, 4px) and clapper at (12px, 21px). Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Notifications",
+    "notes": "Ensure screen readers announce notification state changes when paired with a badge or status text."
+  },
+  "status": "experimental"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "share",
+  "slug": "share",
+  "category": "actions",
+  "description": "Represents sharing or broadcasting outward. On hover the mark winds up, data packets fire along both arms, and impact ripples blast from the receiving nodes.",
+  "keywords": ["share", "broadcast", "send", "distribute", "network", "connect"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "third-party",
+    "license": "unknown",
+    "trademark": false,
+    "attribution": null,
+    "animationAuthor": "trix-icons",
+    "animationLicense": "MIT",
+    "notes": "Base share path picked from a third-party icon site by the maintainer and animated via Gemini; exact source site unconfirmed (1024x1024 grid and node-arm geometry suggest Ant Design Icons share-alt, MIT — UNVERIFIED, confirm before use). License status: pending human review — confirm the source site before promoting to stable. Documented intentional 1024x1024 viewBox deviation to preserve the contributed geometry exactly.",
+    "reviewRequired": true
+  },
+  "animation": {
+    "technique": "directional-translate",
+    "description": "The mark winds up (rotate -12deg, squash 0.92) then releases as two data packets fire from the source node along the arms (440 units, 0.25s easeIn) while a ripple charges inward at the source; impact ripples blast outward (r 60-240) from both receiving nodes on arrival (0.5s easeOut). One-shot, ends at rest. Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Share",
+    "notes": "Provide context for what is being shared when used in a button."
+  },
+  "status": "experimental"
+}

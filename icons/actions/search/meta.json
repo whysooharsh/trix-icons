@@ -1,0 +1,25 @@
+{
+  "name": "search",
+  "slug": "search",
+  "category": "actions",
+  "description": "Represents a search or query action. On hover or trigger, the entire magnifying glass moves through a subtle 2D searching arc (left → up → right → center, ±6° tilt, 2.5px amplitude) before returning to center for an 'aha, target found' scale pop (1.08) and quick settle (580ms).",
+  "keywords": ["search", "find", "magnifier", "lookup", "explore", "query", "zoom"],
+  "version": "0.1.0",
+  "provenance": {
+    "source": "original",
+    "license": "MIT",
+    "trademark": false,
+    "attribution": null,
+    "notes": null
+  },
+  "animation": {
+    "technique": "physical-swing",
+    "description": "Single-group keyframe narrative (580ms, easeInOut): searching arc sweep (x [0, -2.5, 0, 2.5, 0, 0], y [0, -1.5, -2.5, -1, 0, 0], rotate [0, -6, 4, 6, 0, 0]) followed by a target-found scale pop (scale [1, 1, 1, 1, 1.08, 1]). Reduced motion: static.",
+    "reducedMotion": "static"
+  },
+  "accessibility": {
+    "defaultLabel": "Search",
+    "notes": "When used in a search input trigger, pair with aria-label or label text for screen reader clarity."
+  },
+  "status": "experimental"
+}
