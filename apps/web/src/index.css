@@ -173,6 +173,7 @@ header {
 /* CLI Quick Copy Bar */
 .cli-bar {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 16px;
   background: var(--bg-dark-slate);
@@ -369,6 +370,7 @@ header {
 
 .filter-pills {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -404,7 +406,7 @@ header {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--text-primary);
-  min-width: 280px;
+  width: min(100%, 300px);
   outline: none;
   transition: border-color 0.15s ease;
 }
@@ -482,6 +484,7 @@ header {
   align-items: center;
   justify-content: center;
   padding: 24px;
+  overflow-y: auto;
 }
 
 .inspector-modal {
@@ -515,6 +518,7 @@ header {
 
 .modal-step-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -530,11 +534,12 @@ header {
 
 .modal-controls {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
 .btn-ctrl {
-  flex: 1;
+  flex: 1 1 140px;
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
@@ -603,6 +608,8 @@ footer {
 
 .footer-row {
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   align-items: center;
   justify-content: space-between;
 }
@@ -611,4 +618,38 @@ footer {
   font-family: var(--font-serif);
   font-size: 22px;
   color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 20px;
+  }
+  .nav-menu .nav-link {
+    display: none;
+  }
+  .hero-section {
+    padding: 80px 0 60px;
+  }
+  .hero-heading {
+    font-size: 38px;
+  }
+  .section {
+    padding: 80px 0;
+  }
+  .feature-heading {
+    font-size: 32px;
+  }
+  .inspector-backdrop {
+    padding: 12px;
+  }
+  .inspector-modal {
+    padding: 24px;
+  }
+  .modal-meta-grid {
+    grid-template-columns: 1fr;
+  }
+  .provenance-card {
+    padding: 28px;
+    gap: 28px;
+  }
 }

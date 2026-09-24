@@ -714,7 +714,7 @@ export function DialButton() {
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between' }}>
               <div>
                 <h3 style={{ fontSize: '24px', fontWeight: 600, color: 'var(--text-primary)' }}>
                   {selectedIcon.name}
